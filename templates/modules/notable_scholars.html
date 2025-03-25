@@ -1,0 +1,387 @@
+<!-- 杰出学者模块 -->
+<section id="notable_scholars" class="section active">
+    <h2 class="page-title">中国古代杰出学者</h2>
+
+    <!-- 学者分布图表 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">学者分布</h3>
+        <div class="card-content">
+            <div class="chart-container" id="scholars-distribution-chart"></div>
+            <p class="chart-desc">中国历朝历代都涌现出许多杰出学者，他们在哲学、科学、文学、艺术等各个领域做出了重要贡献。上图展示了各朝代杰出学者的数量和类别分布情况。</p>
+        </div>
+    </div>
+
+    <!-- 学者地理分布图 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">学者地理分布</h3>
+        <div class="card-content">
+            <div class="map-controls">
+                <button class="btn btn-primary active" data-region="all">全部区域</button>
+                <button class="btn btn-primary" data-region="north">北方</button>
+                <button class="btn btn-primary" data-region="south">南方</button>
+                <button class="btn btn-primary" data-region="east">东部</button>
+                <button class="btn btn-primary" data-region="west">西部</button>
+            </div>
+            <div id="scholars-map-container" class="chart-container"></div>
+            <p class="chart-desc">学者的地理分布与中国历史上的政治经济文化中心密切相关。早期以北方地区为主，魏晋南北朝后逐渐向南方发展，宋元明清时期形成了南北方共同繁荣的局面。</p>
+        </div>
+    </div>
+
+    <!-- 学者搜索 -->
+    <div class="scholar-search-container">
+        <h3>学者搜索</h3>
+        <div class="search-box">
+            <input type="text" id="scholar-search" placeholder="输入学者姓名、朝代或领域...">
+            <button id="scholar-search-btn"><i class="fa fa-search"></i></button>
+        </div>
+        <div class="filter-tags">
+            <span class="filter-label">快速筛选：</span>
+            <button class="filter-tag active" data-filter="all">全部</button>
+            <button class="filter-tag" data-filter="philosophy">哲学家</button>
+            <button class="filter-tag" data-filter="scientist">科学家</button>
+            <button class="filter-tag" data-filter="literature">文学家</button>
+            <button class="filter-tag" data-filter="art">艺术家</button>
+        </div>
+    </div>
+
+    <!-- 哲学思想家 -->
+    <div class="scholars-category">
+        <h3 class="category-title">哲学思想家</h3>
+
+        <div class="scholars-grid">
+            <!-- 孔子 -->
+            <div class="scholar-card" data-category="philosophy">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/confucius.jpg') }}" alt="孔子" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>孔子</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">前551年-前479年</span>
+                        <span class="meta-item">春秋时期</span>
+                    </div>
+                    <p>儒家学派创始人，主张"仁"、"礼"、"中庸之道"，思想对中国和东亚文化产生了深远影响。著有《论语》。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="confucius">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 老子 -->
+            <div class="scholar-card" data-category="philosophy">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/laozi.jpg') }}" alt="老子" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>老子</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">约前571年-?</span>
+                        <span class="meta-item">春秋时期</span>
+                    </div>
+                    <p>道家学派创始人，主张"道法自然"、"无为而治"，著有《道德经》五千言，对中国哲学思想影响深远。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="laozi">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 墨子 -->
+            <div class="scholar-card" data-category="philosophy">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/mozi.jpg') }}" alt="墨子" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>墨子</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">约前468年-前376年</span>
+                        <span class="meta-item">战国早期</span>
+                    </div>
+                    <p>墨家学派创始人，主张"兼爱"、"非攻"、"尚贤"、"节用"，强调实用理性，在科技领域也有建树。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="mozi">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 孟子 -->
+            <div class="scholar-card" data-category="philosophy">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/mengzi.jpg') }}" alt="孟子" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>孟子</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">约前372年-前289年</span>
+                        <span class="meta-item">战国中期</span>
+                    </div>
+                    <p>儒家代表人物，继承并发展了孔子思想，主张"仁政"、"民贵君轻"、"性善论"，著有《孟子》。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="mengzi">查看详情</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 科学家 -->
+    <div class="scholars-category">
+        <h3 class="category-title">科学家</h3>
+
+        <div class="scholars-grid">
+            <!-- 张衡 -->
+            <div class="scholar-card" data-category="scientist">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/zhangHeng.jpg') }}" alt="张衡" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>张衡</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">78年-139年</span>
+                        <span class="meta-item">东汉</span>
+                    </div>
+                    <p>杰出的天文学家、数学家、发明家、文学家，发明地动仪，提出浑天说，著有《浑天仪注》等。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="zhangHeng">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 祖冲之 -->
+            <div class="scholar-card" data-category="scientist">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/zuChongzhi.jpg') }}" alt="祖冲之" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>祖冲之</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">429年-500年</span>
+                        <span class="meta-item">南北朝</span>
+                    </div>
+                    <p>杰出的数学家、天文学家，将圆周率精确到小数点后第七位（3.1415926与3.1415927之间），著有《缀术》等。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="zuChongzhi">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 沈括 -->
+            <div class="scholar-card" data-category="scientist">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/shenKuo.jpg') }}" alt="沈括" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>沈括</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">1031年-1095年</span>
+                        <span class="meta-item">北宋</span>
+                    </div>
+                    <p>百科全书式的科学家，在天文、数学、地理、物理、生物等领域均有建树，著有《梦溪笔谈》。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="shenKuo">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 李时珍 -->
+            <div class="scholar-card" data-category="scientist">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/liShizhen.jpg') }}" alt="李时珍" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>李时珍</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">1518年-1593年</span>
+                        <span class="meta-item">明代</span>
+                    </div>
+                    <p>医药学家，历时27年编著《本草纲目》，收录药物1892种，是东方医药学的集大成者。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="liShizhen">查看详情</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文学家 -->
+    <div class="scholars-category">
+        <h3 class="category-title">文学家</h3>
+
+        <div class="scholars-grid">
+            <!-- 屈原 -->
+            <div class="scholar-card" data-category="literature">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/quYuan.jpg') }}" alt="屈原" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>屈原</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">约前340年-前278年</span>
+                        <span class="meta-item">战国时期</span>
+                    </div>
+                    <p>中国历史上第一位伟大的爱国诗人，楚辞的创始人，代表作有《离骚》《天问》《九歌》等。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="quYuan">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 李白 -->
+            <div class="scholar-card" data-category="literature">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/liBai.jpg') }}" alt="李白" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>李白</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">701年-762年</span>
+                        <span class="meta-item">唐代</span>
+                    </div>
+                    <p>唐代伟大的浪漫主义诗人，被称为"诗仙"，著有《将进酒》《行路难》《蜀道难》等不朽诗篇。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="liBai">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 杜甫 -->
+            <div class="scholar-card" data-category="literature">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/duFu.jpg') }}" alt="杜甫" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>杜甫</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">712年-770年</span>
+                        <span class="meta-item">唐代</span>
+                    </div>
+                    <p>唐代伟大的现实主义诗人，被称为"诗圣"，著有《三吏》《三别》《春望》等，被誉为"诗史"。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="duFu">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 苏轼 -->
+            <div class="scholar-card" data-category="literature">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/suShi.jpg') }}" alt="苏轼" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>苏轼</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">1037年-1101年</span>
+                        <span class="meta-item">北宋</span>
+                    </div>
+                    <p>北宋文学家、书画家，在诗、词、散文、书法、绘画等领域均有杰出成就，代表作有《赤壁赋》《水调歌头》等。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="suShi">查看详情</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 艺术家 -->
+    <div class="scholars-category">
+        <h3 class="category-title">艺术家</h3>
+
+        <div class="scholars-grid">
+            <!-- 王羲之 -->
+            <div class="scholar-card" data-category="art">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/wangXizhi.jpg') }}" alt="王羲之" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>王羲之</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">303年-361年</span>
+                        <span class="meta-item">东晋</span>
+                    </div>
+                    <p>东晋书法家，被誉为"书圣"，代表作《兰亭序》被称为"天下第一行书"，对后世书法艺术影响深远。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="wangXizhi">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 顾恺之 -->
+            <div class="scholar-card" data-category="art">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/guKaizhi.jpg') }}" alt="顾恺之" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>顾恺之</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">约348年-409年</span>
+                        <span class="meta-item">东晋</span>
+                    </div>
+                    <p>东晋著名画家，中国古代绘画理论的奠基人之一，提出"以形写神"的绘画理念，代表作有《女史箴图》。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="guKaizhi">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 张择端 -->
+            <div class="scholar-card" data-category="art">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/zhangZeduan.jpg') }}" alt="张择端" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>张择端</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">约1085年-1145年</span>
+                        <span class="meta-item">北宋</span>
+                    </div>
+                    <p>北宋画家，擅长绘制风俗画，代表作《清明上河图》真实描绘了北宋都城汴京的繁华景象。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="zhangZeduan">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 李清照 -->
+            <div class="scholar-card" data-category="literature art">
+                <div class="scholar-image">
+                    <img src="{{ url_for('static', filename='images/scholars/liQingzhao.jpg') }}" alt="李清照" class="img-fluid">
+                </div>
+                <div class="scholar-info">
+                    <h4>李清照</h4>
+                    <div class="scholar-meta">
+                        <span class="meta-item">1084年-约1155年</span>
+                        <span class="meta-item">宋代</span>
+                    </div>
+                    <p>宋代女词人，被誉为"千古第一才女"，创造了独特的"易安体"词风，代表作有《声声慢》《醉花阴》等。</p>
+                    <button class="btn scholar-detail-btn" data-scholar="liQingzhao">查看详情</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 学者历史贡献 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">历史贡献与今日价值</h3>
+        <div class="card-content">
+            <div class="contribution-intro">
+                <p>中国古代杰出学者在推动科学技术发展、传承文化精神、丰富思想文化等方面做出了巨大贡献，他们的思想和成就至今仍具有重要价值。</p>
+            </div>
+
+            <div class="contribution-grid">
+                <div class="contribution-item">
+                    <div class="item-icon"><i class="fa fa-flask"></i></div>
+                    <h4>科学技术</h4>
+                    <p>古代学者在数学、天文、医学、农学等领域的研究成果，为中国古代科学技术发展奠定了基础，如祖冲之的圆周率计算、张衡的地动仪发明等。</p>
+                </div>
+
+                <div class="contribution-item">
+                    <div class="item-icon"><i class="fa fa-book"></i></div>
+                    <h4>思想哲学</h4>
+                    <p>儒家、道家、法家、墨家等学派的创立者和代表人物，形成了多元化的思想体系，影响了中国几千年的政治制度和社会生活。</p>
+                </div>
+
+                <div class="contribution-item">
+                    <div class="item-icon"><i class="fa fa-pencil"></i></div>
+                    <h4>文学艺术</h4>
+                    <p>诗人、词人、书法家、画家等在文学和艺术领域的杰出成就，丰富了中华文化的内涵，创造了灿烂的文化遗产。</p>
+                </div>
+
+                <div class="contribution-item">
+                    <div class="item-icon"><i class="fa fa-globe"></i></div>
+                    <h4>世界影响</h4>
+                    <p>孔子、老子等思想家的学说不仅影响了中国，还传播到日本、朝鲜、越南等东亚国家，成为东亚文化圈的共同智慧财富。</p>
+                </div>
+            </div>
+
+            <div class="value-today">
+                <h4>今日价值</h4>
+                <p>古代学者留下的思想精华、科学成就和艺术瑰宝，至今仍然具有重要的现实意义和参考价值：</p>
+                <ul>
+                    <li>儒家思想中的"仁爱"、"和谐"等理念，对构建和谐社会具有启示意义</li>
+                    <li>道家的"天人合一"思想，对当今生态环保理念的形成有所启发</li>
+                    <li>古代科学家锲而不舍的科研精神，激励着今天的科技工作者</li>
+                    <li>古代文学艺术的优秀传统，仍是现代文艺创作的重要源泉</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 学者详情模态框 -->
+    <div id="scholar-detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="scholar-detail-content">
+                <!-- 学者详情内容将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </div>
+</section>

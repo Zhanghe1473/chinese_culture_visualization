@@ -1,0 +1,344 @@
+<!-- 杰出著作模块 -->
+<section id="notable_works" class="section active">
+    <h2 class="page-title">中国古代杰出著作</h2>
+
+    <!-- 著作分类导航 -->
+    <div class="works-categories">
+        <div class="category-info">
+            <h3>四部分类法</h3>
+            <p id="category-desc-text">四部分类是中国古代图书分类法，将典籍分为经、史、子、集四大类。经部为儒家经典，史部为历史著作，子部为诸子百家著作，集部为文学作品集。</p>
+        </div>
+
+        <div class="category-nav">
+            <div class="category-item active" data-category="all">
+                <div class="item-icon"><i class="fa fa-book"></i></div>
+                <div class="item-text">全部</div>
+            </div>
+            <div class="category-item" data-category="jing">
+                <div class="item-icon"><i class="fa fa-bookmark"></i></div>
+                <div class="item-text">经部</div>
+            </div>
+            <div class="category-item" data-category="shi">
+                <div class="item-icon"><i class="fa fa-history"></i></div>
+                <div class="item-text">史部</div>
+            </div>
+            <div class="category-item" data-category="zi">
+                <div class="item-icon"><i class="fa fa-lightbulb-o"></i></div>
+                <div class="item-text">子部</div>
+            </div>
+            <div class="category-item" data-category="ji">
+                <div class="item-icon"><i class="fa fa-pencil"></i></div>
+                <div class="item-text">集部</div>
+            </div>
+        </div>
+
+        <!-- 著作搜索 -->
+        <div class="works-search">
+            <input type="text" id="works-search" placeholder="搜索著作...">
+            <button id="works-search-btn"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+
+    <!-- 著作数量趋势图 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">中国古代著作数量变化趋势</h3>
+        <div class="card-content">
+            <div class="chart-container" id="books-trend-chart"></div>
+            <p class="chart-desc">随着时间推移，中国古代著作数量呈增长趋势，尤其在唐宋时期出现了快速增长。宋代印刷术的普及使书籍生产成本降低，促进了著作数量的爆发式增长。</p>
+        </div>
+    </div>
+
+    <!-- 重要著作展示 -->
+    <div class="notable-works">
+        <h3>历代重要著作</h3>
+
+        <!-- 经部著作 -->
+        <div class="works-section">
+            <h4 class="section-title">经部经典</h4>
+            <div class="works-grid">
+                <!-- 著作卡片：论语 -->
+                <div class="work-card" data-category="jing">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/lunyu.jpg') }}" alt="论语" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>论语</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">春秋战国时期</span>
+                            <span class="meta-item">儒家</span>
+                        </div>
+                        <p>记录孔子及其弟子言行的语录集，由孔子弟子及其再传弟子编撰而成，全书共20篇，是研究孔子思想的主要文献。</p>
+                        <button class="btn work-detail-btn" data-work="lunyu">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 著作卡片：大学 -->
+                <div class="work-card" data-category="jing">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/daxue.jpg') }}" alt="大学" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>大学</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">战国时期</span>
+                            <span class="meta-item">儒家</span>
+                        </div>
+                        <p>原为《礼记》中的一篇，后被宋代理学家朱熹列为"四书"之一。阐述了"三纲八目"的修身治国理论，强调修身齐家治国平天下。</p>
+                        <button class="btn work-detail-btn" data-work="daxue">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 著作卡片：中庸 -->
+                <div class="work-card" data-category="jing">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/zhongyong.jpg') }}" alt="中庸" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>中庸</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">战国时期</span>
+                            <span class="meta-item">儒家</span>
+                        </div>
+                        <p>原为《礼记》中的一篇，后被列为"四书"之一。提出"中庸"思想，强调中和之道，阐述了"诚"的哲学。</p>
+                        <button class="btn work-detail-btn" data-work="zhongyong">查看详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 史部著作 -->
+        <div class="works-section">
+            <h4 class="section-title">史部经典</h4>
+            <div class="works-grid">
+                <!-- 著作卡片：史记 -->
+                <div class="work-card" data-category="shi">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/shiji.jpg') }}" alt="史记" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>史记</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">西汉</span>
+                            <span class="meta-item">司马迁</span>
+                        </div>
+                        <p>中国第一部纪传体通史，记载了上起黄帝、下至汉武帝时期约3000年的历史，被鲁迅誉为"史家之绝唱，无韵之离骚"。</p>
+                        <button class="btn work-detail-btn" data-work="shiji">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 著作卡片：汉书 -->
+                <div class="work-card" data-category="shi">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/hanshu.jpg') }}" alt="汉书" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>汉书</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">东汉</span>
+                            <span class="meta-item">班固</span>
+                        </div>
+                        <p>中国第一部纪传体断代史，记载了西汉一代的历史，开创了断代史的先河。</p>
+                        <button class="btn work-detail-btn" data-work="hanshu">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 著作卡片：资治通鉴 -->
+                <div class="work-card" data-category="shi">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/zizhi_tongjian.jpg') }}" alt="资治通鉴" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>资治通鉴</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">北宋</span>
+                            <span class="meta-item">司马光</span>
+                        </div>
+                        <p>编年体通史，记载了从战国到五代共1362年的历史，是我国古代最著名的编年体史书。</p>
+                        <button class="btn work-detail-btn" data-work="zizhi">查看详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 子部著作 -->
+        <div class="works-section">
+            <h4 class="section-title">子部经典</h4>
+            <div class="works-grid">
+                <!-- 著作卡片：道德经 -->
+                <div class="work-card" data-category="zi">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/daodejing.jpg') }}" alt="道德经" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>道德经</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">春秋战国</span>
+                            <span class="meta-item">老子</span>
+                        </div>
+                        <p>道家思想的经典著作，全书共5000余字，阐述了"道"与"德"的哲学，对中国哲学和文化产生了深远影响。</p>
+                        <button class="btn work-detail-btn" data-work="daodejing">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 著作卡片：孙子兵法 -->
+                <div class="work-card" data-category="zi">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/sunzi.jpg') }}" alt="孙子兵法" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>孙子兵法</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">春秋时期</span>
+                            <span class="meta-item">孙武</span>
+                        </div>
+                        <p>中国古代最著名的兵书，总结了战争的规律和原则，被誉为"兵学圣典"，对世界军事思想有深远影响。</p>
+                        <button class="btn work-detail-btn" data-work="sunzi">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 著作卡片：黄帝内经 -->
+                <div class="work-card" data-category="zi">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/huangdineijing.jpg') }}" alt="黄帝内经" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>黄帝内经</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">战国至西汉</span>
+                            <span class="meta-item">医学</span>
+                        </div>
+                        <p>中医理论的奠基之作，由《素问》和《灵枢》两部分组成，系统阐述了中医的基本理论和临床实践。</p>
+                        <button class="btn work-detail-btn" data-work="huangdineijing">查看详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 集部著作 -->
+        <div class="works-section">
+            <h4 class="section-title">集部经典</h4>
+            <div class="works-grid">
+                <!-- 著作卡片：诗经 -->
+                <div class="work-card" data-category="ji">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/shijing.jpg') }}" alt="诗经" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>诗经</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">西周至春秋</span>
+                            <span class="meta-item">诗歌</span>
+                        </div>
+                        <p>中国第一部诗歌总集，收录了西周初年至春秋中叶的诗歌305篇，分为风、雅、颂三部分。</p>
+                        <button class="btn work-detail-btn" data-work="shijing">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 著作卡片：楚辞 -->
+                <div class="work-card" data-category="ji">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/chuci.jpg') }}" alt="楚辞" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>楚辞</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">战国至汉</span>
+                            <span class="meta-item">屈原等</span>
+                        </div>
+                        <p>以屈原作品为主的诗歌集，具有浓厚的楚国文化特色和浪漫主义风格，对后世文学影响深远。</p>
+                        <button class="btn work-detail-btn" data-work="chuci">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 著作卡片：文选 -->
+                <div class="work-card" data-category="ji">
+                    <div class="work-image">
+                        <img src="{{ url_for('static', filename='images/works/wenxuan.jpg') }}" alt="文选" class="img-fluid">
+                    </div>
+                    <div class="work-info">
+                        <h4>文选</h4>
+                        <div class="work-meta">
+                            <span class="meta-item">南朝梁</span>
+                            <span class="meta-item">萧统编</span>
+                        </div>
+                        <p>中国第一部按文体分类的诗文总集，收录了先秦至梁代的文学作品，对中国古代文学的发展和研究具有重要意义。</p>
+                        <button class="btn work-detail-btn" data-work="wenxuan">查看详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 著作影响力分析 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">经典著作影响力分析</h3>
+        <div class="card-content">
+            <div class="influence-analysis">
+                <p>中国古代经典著作不仅影响了中国人的思维方式和价值观念，也对东亚文化圈和世界文化产生了深远影响。</p>
+
+                <div class="influence-grid">
+                    <div class="influence-item">
+                        <h4>思想影响</h4>
+                        <p>儒家经典塑造了中国人的道德观和价值观，道家思想影响了中国人的自然观和人生哲学，佛教经典丰富了中国人的精神世界。</p>
+                    </div>
+
+                    <div class="influence-item">
+                        <h4>政治影响</h4>
+                        <p>《论语》、《孟子》等儒家经典为中国古代政治制度提供了理论基础，影响了中国两千多年的政治实践。</p>
+                    </div>
+
+                    <div class="influence-item">
+                        <h4>教育影响</h4>
+                        <p>四书五经长期作为科举考试的内容，成为古代读书人必读的经典，塑造了中国古代知识分子的精神气质。</p>
+                    </div>
+
+                    <div class="influence-item">
+                        <h4>文学影响</h4>
+                        <p>《诗经》、《楚辞》奠定了中国诗歌传统，文言小说和历史著作影响了中国叙事文学的发展。</p>
+                    </div>
+
+                    <div class="influence-item">
+                        <h4>科技影响</h4>
+                        <p>《周髀算经》、《九章算术》等数学著作，《黄帝内经》、《本草纲目》等医学著作，推动了中国古代科学技术的发展。</p>
+                    </div>
+
+                    <div class="influence-item">
+                        <h4>东亚影响</h4>
+                        <p>儒家经典传入日本、朝鲜、越南等国，成为东亚文化圈的共同精神财富，形成了以汉字文化为纽带的文化共同体。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 著作传播路径 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">经典著作传播路径</h3>
+        <div class="card-content">
+            <div class="spread-map">
+                <img src="{{ url_for('static', filename='images/works/spread_map.jpg') }}" alt="经典著作传播路径图" class="img-fluid">
+            </div>
+
+            <div class="spread-explanation">
+                <p>中国古代经典著作通过多种途径向外传播，主要包括：</p>
+                <ul>
+                    <li><strong>官方使节：</strong>通过朝贡关系，中国典籍传入周边国家</li>
+                    <li><strong>留学生交流：</strong>日本、朝鲜等国派遣留学生来华学习，带回经典著作</li>
+                    <li><strong>僧侣传播：</strong>佛教僧侣往来于中国与日本、朝鲜、越南等国之间，带动经典著作的传播</li>
+                    <li><strong>商业贸易：</strong>通过海上丝绸之路，中国典籍传至东南亚、南亚</li>
+                    <li><strong>西方传教士：</strong>明清时期，耶稣会士将中国经典著作译介到欧洲</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 著作详情模态框 -->
+    <div id="work-detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="work-detail-content">
+                <!-- 著作详情内容将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </div>
+</section>

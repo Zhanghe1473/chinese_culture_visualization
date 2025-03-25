@@ -1,0 +1,394 @@
+<!-- 数据汇总模块 -->
+<section id="data_summary" class="section active">
+    <h2 class="page-title">中华文明数据汇总</h2>
+
+    <!-- 数据仪表板 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">数据仪表板</h3>
+        <div class="card-content">
+            <div class="dashboard-controls">
+                <div class="view-controls">
+                    <span class="control-label">视图：</span>
+                    <button class="view-btn active" data-view="overall">整体概览</button>
+                    <button class="view-btn" data-view="dynasty">朝代对比</button>
+                    <button class="view-btn" data-view="category">领域分布</button>
+                    <button class="view-btn" data-view="region">地域分析</button>
+                </div>
+            </div>
+
+            <!-- 整体概览视图 -->
+            <div class="dashboard-view active" id="view-overall">
+                <div class="view-title">中华文明成就整体概览</div>
+
+                <div class="key-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value">4000+</div>
+                        <div class="metric-label">年文明史</div>
+                        <div class="metric-trend">
+                            <i class="fa fa-line-chart"></i>
+                            <span>连续不断</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value">1000+</div>
+                        <div class="metric-label">重要发明</div>
+                        <div class="metric-trend">
+                            <i class="fa fa-line-chart"></i>
+                            <span>持续创新</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value">5000+</div>
+                        <div class="metric-label">杰出人物</div>
+                        <div class="metric-trend">
+                            <i class="fa fa-line-chart"></i>
+                            <span>人才辈出</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value">10万+</div>
+                        <div class="metric-label">历史文献</div>
+                        <div class="metric-trend">
+                            <i class="fa fa-line-chart"></i>
+                            <span>文化积累</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-charts">
+                    <div class="chart-wrapper">
+                        <h4>各领域成就分布</h4>
+                        <div class="chart-container" id="achievements-pie-chart"></div>
+                    </div>
+
+                    <div class="chart-wrapper">
+                        <h4>各朝代科技发展趋势</h4>
+                        <div class="chart-container" id="science-trend-chart"></div>
+                    </div>
+                </div>
+
+                <div class="civilization-comparison">
+                    <h4>与世界古代文明对比</h4>
+                    <div class="chart-container" id="civilization-comparison-chart"></div>
+                </div>
+            </div>
+
+            <!-- 朝代对比视图 -->
+            <div class="dashboard-view" id="view-dynasty" style="display:none">
+                <div class="view-title">古代朝代文明成就对比</div>
+
+                <div class="dynasty-comparison-controls">
+                    <div class="dynasty-selector">
+                        <label for="dynasty-select">选择朝代：</label>
+                        <select id="dynasty-select" multiple>
+                            <option value="xianqin" selected>先秦</option>
+                            <option value="qinhan" selected>秦汉</option>
+                            <option value="weijin" selected>魏晋南北朝</option>
+                            <option value="suitang" selected>隋唐</option>
+                            <option value="songyuan" selected>宋元</option>
+                            <option value="mingqing" selected>明清</option>
+                        </select>
+                    </div>
+
+                    <div class="metric-selector">
+                        <label for="metric-select">选择指标：</label>
+                        <select id="metric-select">
+                            <option value="overall">综合成就</option>
+                            <option value="science">科学技术</option>
+                            <option value="literature">文学艺术</option>
+                            <option value="philosophy">哲学思想</option>
+                            <option value="institutions">制度文明</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="dynasty-charts">
+                    <div class="chart-wrapper">
+                        <h4>朝代成就雷达图</h4>
+                        <div class="chart-container" id="dynasty-radar-chart"></div>
+                    </div>
+
+                    <div class="chart-wrapper">
+                        <h4>朝代杰出人物数量</h4>
+                        <div class="chart-container" id="dynasty-scholars-chart"></div>
+                    </div>
+                </div>
+
+                <div class="dynasty-details">
+                    <h4>朝代特点分析</h4>
+                    <div class="dynasty-detail-content" id="dynasty-analysis">
+                        <!-- 动态内容将通过JavaScript加载 -->
+                        <p>请在上方选择朝代和指标以查看详细分析。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 领域分布视图 -->
+            <div class="dashboard-view" id="view-category" style="display:none">
+                <div class="view-title">各领域成就分布与互动</div>
+
+                <div class="category-selector">
+                    <div class="selector-buttons">
+                        <button class="category-btn active" data-category="science">科学技术</button>
+                        <button class="category-btn" data-category="literature">文学艺术</button>
+                        <button class="category-btn" data-category="philosophy">哲学思想</button>
+                        <button class="category-btn" data-category="custom">风俗习惯</button>
+                        <button class="category-btn" data-category="institution">制度文明</button>
+                    </div>
+                </div>
+
+                <div class="category-details">
+                    <div class="category-content active" id="science-content">
+                        <div class="category-charts">
+                            <div class="chart-wrapper">
+                                <h4>科技成果时间分布</h4>
+                                <div class="chart-container" id="science-timeline-chart"></div>
+                            </div>
+
+                            <div class="chart-wrapper">
+                                <h4>科技领域细分</h4>
+                                <div class="chart-container" id="science-breakdown-chart"></div>
+                            </div>
+                        </div>
+
+                        <div class="category-highlights">
+                            <h4>科技领域重要成就</h4>
+                            <div class="highlights-grid">
+                                <div class="highlight-item">
+                                    <div class="highlight-icon"><i class="fa fa-star"></i></div>
+                                    <div class="highlight-content">
+                                        <h5>四大发明</h5>
+                                        <p>造纸术、印刷术、火药、指南针被誉为中国古代四大发明，对世界文明进程产生了重大影响。</p>
+                                    </div>
+                                </div>
+
+                                <div class="highlight-item">
+                                    <div class="highlight-icon"><i class="fa fa-star"></i></div>
+                                    <div class="highlight-content">
+                                        <h5>天文历法</h5>
+                                        <p>中国古代天文学成就斐然，创造了精确的历法系统，如汉代《太初历》、唐代《大衍历》、元代《授时历》等。</p>
+                                    </div>
+                                </div>
+
+                                <div class="highlight-item">
+                                    <div class="highlight-icon"><i class="fa fa-star"></i></div>
+                                    <div class="highlight-content">
+                                        <h5>数学成就</h5>
+                                        <p>从《九章算术》到祖冲之求圆周率，中国古代数学家在几何、代数等领域有重要贡献。</p>
+                                    </div>
+                                </div>
+
+                                <div class="highlight-item">
+                                    <div class="highlight-icon"><i class="fa fa-star"></i></div>
+                                    <div class="highlight-content">
+                                        <h5>医药学</h5>
+                                        <p>中医药学体系完备，《黄帝内经》、《本草纲目》等经典著作总结了丰富的医疗经验。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 其他领域内容（隐藏状态）-->
+                    <div class="category-content" id="literature-content" style="display:none">
+                        <!-- 文学艺术内容 -->
+                    </div>
+
+                    <div class="category-content" id="philosophy-content" style="display:none">
+                        <!-- 哲学思想内容 -->
+                    </div>
+
+                    <div class="category-content" id="custom-content" style="display:none">
+                        <!-- 风俗习惯内容 -->
+                    </div>
+
+                    <div class="category-content" id="institution-content" style="display:none">
+                        <!-- 制度文明内容 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 地域分析视图 -->
+            <div class="dashboard-view" id="view-region" style="display:none">
+                <div class="view-title">中华文明地域分布分析</div>
+
+                <div class="region-map-container">
+                    <div id="china-region-map" class="map-container"></div>
+                    <div class="map-controls">
+                        <button class="map-control-btn" data-period="xianqin">先秦时期</button>
+                        <button class="map-control-btn" data-period="qinhan">秦汉时期</button>
+                        <button class="map-control-btn" data-period="weijin">魏晋南北朝</button>
+                        <button class="map-control-btn" data-period="suitang">隋唐时期</button>
+                        <button class="map-control-btn" data-period="songyuan">宋元时期</button>
+                        <button class="map-control-btn" data-period="mingqing">明清时期</button>
+                    </div>
+                </div>
+
+                <div class="region-analysis">
+                    <div class="analysis-tabs">
+                        <div class="analysis-tab active" data-tab="culture-centers">文化中心变迁</div>
+                        <div class="analysis-tab" data-tab="regional-features">地域文化特色</div>
+                        <div class="analysis-tab" data-tab="geographical-impact">地理环境影响</div>
+                    </div>
+
+                    <div class="analysis-content">
+                        <div class="tab-content active" id="culture-centers-content">
+                            <h4>中国历史文化中心变迁</h4>
+                            <p>中国历史上的文化中心随着朝代更迭和政治、经济中心的转移而变化。先秦时期，文化中心主要在黄河流域；秦汉时期，关中平原和中原地区成为文化中心；魏晋南北朝时期，江南地区文化开始兴起；隋唐时期，长安（今西安）成为世界文化中心；宋元时期，文化中心南移至江南地区；明清时期，北京和江南地区共同繁荣。</p>
+
+                            <div class="chart-container" id="culture-centers-chart"></div>
+                        </div>
+
+                        <div class="tab-content" id="regional-features-content" style="display:none">
+                            <!-- 地域文化特色内容 -->
+                        </div>
+
+                        <div class="tab-content" id="geographical-impact-content" style="display:none">
+                            <!-- 地理环境影响内容 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 数据探索工具 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">数据探索工具</h3>
+        <div class="card-content">
+            <div class="explorer-intro">
+                <p>通过选择不同的维度和指标，自定义生成数据图表，探索中华文明的丰富内涵。</p>
+            </div>
+
+            <div class="explorer-controls">
+                <div class="control-group">
+                    <label for="explorer-dimension">选择维度：</label>
+                    <select id="explorer-dimension">
+                        <option value="dynasty">朝代</option>
+                        <option value="category">类别</option>
+                        <option value="region">地区</option>
+                        <option value="time">时间</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="explorer-metric">选择指标：</label>
+                    <select id="explorer-metric">
+                        <option value="count">数量</option>
+                        <option value="impact">影响力</option>
+                        <option value="duration">持续时间</option>
+                        <option value="innovation">创新程度</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="explorer-chart-type">图表类型：</label>
+                    <select id="explorer-chart-type">
+                        <option value="bar">柱状图</option>
+                        <option value="line">折线图</option>
+                        <option value="pie">饼图</option>
+                        <option value="radar">雷达图</option>
+                    </select>
+                </div>
+
+                <button id="generate-chart-btn" class="btn">生成图表</button>
+            </div>
+
+            <div class="explorer-chart-container">
+                <div id="explorer-chart" class="chart-container"></div>
+                <div id="explorer-analysis" class="explorer-analysis">
+                    <!-- 分析结果将通过JavaScript动态生成 -->
+                    <p class="analysis-placeholder">选择参数并点击"生成图表"按钮查看分析结果。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文明发展趋势 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">文明发展趋势分析</h3>
+        <div class="card-content">
+            <div class="trends-intro">
+                <p>通过对中华文明历史发展的数据分析，我们可以发现一些重要的发展规律和趋势。</p>
+            </div>
+
+            <div class="trends-grid">
+                <div class="trend-item">
+                    <div class="trend-icon"><i class="fa fa-line-chart"></i></div>
+                    <h4>周期性发展</h4>
+                    <p>中华文明展现出明显的周期性发展特征，每个朝代初期往往是政治稳定、经济繁荣、文化兴盛的时期，而后期则可能出现各种社会问题和衰退迹象。这种周期一般持续200-300年，与统治王朝的兴衰周期相呼应。</p>
+                </div>
+
+                <div class="trend-item">
+                    <div class="trend-icon"><i class="fa fa-exchange"></i></div>
+                    <h4>南北互动</h4>
+                    <p>中华文明的发展呈现出明显的南北互动模式。早期文明中心在黄河流域，魏晋南北朝时期开始南移，隋唐时期形成南北并重格局，宋元时期南方文化繁荣，明清时期则是南北文化共同发展。</p>
+                </div>
+
+                <div class="trend-item">
+                    <div class="trend-icon"><i class="fa fa-random"></i></div>
+                    <h4>多元一体</h4>
+                    <p>中华文明展现出多元一体的发展趋势，各民族、各地区文化相互影响、相互融合，最终形成了统一的中华文化体系。这种多元一体格局在历史发展中不断巩固和强化。</p>
+                </div>
+
+                <div class="trend-item">
+                    <div class="trend-icon"><i class="fa fa-refresh"></i></div>
+                    <h4>创新传承</h4>
+                    <p>中华文明在发展过程中，既重视传统的继承，又注重创新的推动。每个朝代都在前人基础上有所发展，既有思想、文化、制度的传承，又有科技、艺术、哲学的创新。</p>
+                </div>
+            </div>
+
+            <div class="trends-chart">
+                <h4>中华文明发展指数历史趋势</h4>
+                <div class="chart-container" id="civilization-trend-chart"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 数据来源说明 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">数据来源与方法说明</h3>
+        <div class="card-content">
+            <div class="data-sources">
+                <h4>主要数据来源</h4>
+                <ul>
+                    <li>《中国科学技术史》（李约瑟等著）</li>
+                    <li>《中国历代思想史》（葛兆光著）</li>
+                    <li>《中国文化史》（柳诒徵著）</li>
+                    <li>《中国历代政治得失》（钱穆著）</li>
+                    <li>《中国古代科技成就》（中国科学院自然科学史研究所编）</li>
+                    <li>《中华文明史》（中国社会科学院历史研究所编）</li>
+                    <li>《剑桥中国史》</li>
+                    <li>各类历史文献、考古资料和学术研究成果</li>
+                </ul>
+            </div>
+
+            <div class="data-methods">
+                <h4>数据处理方法</h4>
+                <p>本系统中的数据通过以下方法收集和处理：</p>
+                <ol>
+                    <li><strong>资料收集：</strong>从权威历史文献、学术著作和研究论文中收集原始数据</li>
+                    <li><strong>数据筛选：</strong>对收集的数据进行筛选，确保数据的准确性和可靠性</li>
+                    <li><strong>指标构建：</strong>根据研究目的构建相应的评价指标体系</li>
+                    <li><strong>数据标准化：</strong>对不同类型和尺度的数据进行标准化处理，使其具有可比性</li>
+                    <li><strong>可视化处理：</strong>使用适当的可视化方法，直观展示数据的特征和规律</li>
+                </ol>
+            </div>
+
+            <div class="data-limitations">
+                <h4>数据局限性</h4>
+                <p>由于历史遥远和资料有限，本系统的数据分析存在一些局限性：</p>
+                <ul>
+                    <li>早期历史数据可能存在不完整或不精确的问题</li>
+                    <li>对历史成就的评价可能涉及主观因素</li>
+                    <li>不同时期、不同领域的成就难以进行完全客观的比较</li>
+                    <li>某些定性内容难以完全量化</li>
+                </ul>
+                <p>因此，本系统的数据分析结果应作为了解中华文明的参考，而非绝对精确的科学结论。</p>
+            </div>
+        </div>
+    </div>
+</section>

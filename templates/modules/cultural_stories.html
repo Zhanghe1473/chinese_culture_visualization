@@ -1,0 +1,581 @@
+<!-- 文化典故模块 -->
+<section id="cultural_stories" class="section active">
+    <h2 class="page-title">中国古代文化典故</h2>
+    
+    <!-- 典故分布图表 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">典故分布</h3>
+        <div class="card-content">
+            <div class="chart-container" id="cultural-stories-chart"></div>
+            <p class="chart-desc">中国古代文化典故源远流长，内容丰富多彩，涵盖历史、哲理、寓言、成语等多个方面。上图展示了不同类型文化典故的分布比例。</p>
+        </div>
+    </div>
+    
+    <!-- 典故搜索 -->
+    <div class="stories-search-container">
+        <h3>典故搜索</h3>
+        <div class="search-box">
+            <input type="text" id="story-search" placeholder="输入典故名称、关键词或朝代...">
+            <button id="story-search-btn"><i class="fa fa-search"></i></button>
+        </div>
+        <div class="stories-filter">
+            <span class="filter-label">快速筛选：</span>
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="historical">历史典故</button>
+            <button class="filter-btn" data-filter="philosophical">哲理典故</button>
+            <button class="filter-btn" data-filter="idiom">成语典故</button>
+            <button class="filter-btn" data-filter="mythological">神话传说</button>
+        </div>
+    </div>
+    
+    <!-- 历史典故 -->
+    <div class="stories-category">
+        <h3 class="category-title">历史典故</h3>
+        <p class="category-desc">历史典故源于真实的历史事件和人物，经过长期流传而形成的具有教育意义的故事。</p>
+        
+        <div class="stories-grid">
+            <!-- 围魏救赵 -->
+            <div class="story-card historical">
+                <div class="story-header">
+                    <h4>围魏救赵</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">战国时期</span>
+                        <span class="meta-item">军事策略</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>战国时期，魏国进攻赵国都城邯郸。赵国向齐国求救，齐国派田忌、孙膑率军救赵。孙膑认为魏国主力在赵国，本土空虚，于是直接攻打魏国都城大梁，迫使魏军回援，从而解除了赵国的危机。</p>
+                    <div class="story-value">
+                        <span class="value-title">寓意：</span>
+                        <span class="value-content">避实就虚，调虎离山，围魏救赵成为中国古代著名的军事战略。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="weiweijz">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-weiweijz" style="display:none">
+                    <div class="full-content">
+                        <h4>围魏救赵的历史背景</h4>
+                        <p>公元前354年，魏国与赵国因争夺上党地区而爆发战争。魏国派庞涓率军围攻赵国都城邯郸，赵国危在旦夕。赵王向齐国求救，齐王派田忌、孙膑率军救赵。</p>
+                        
+                        <h4>孙膑的军事智慧</h4>
+                        <p>孙膑与庞涓曾是同门师兄弟，他深知庞涓的性格和战术特点。孙膑分析当时形势，认为直接与魏军交战并非上策，因为魏军主力在赵国，实力强大。他提出了"围魏救赵"的战略，即不直接救赵，而是攻打魏国本土，迫使魏军回救，从而间接解除赵国的危机。</p>
+                        
+                        <h4>战略实施</h4>
+                        <p>齐军按孙膑的计策，直接攻打魏国国都大梁（今河南开封）。魏王得知齐军攻打大梁，立即命令庞涓撤军回援。庞涓率军日夜兼程回救大梁，士兵疲惫不堪。孙膑在桂陵（今河南省荥阳市）设下埋伏，大败疲惫的魏军，庞涓兵败自杀。</p>
+                        
+                        <h4>战略意义</h4>
+                        <p>这一战役不仅成功解除了赵国的危机，还重创了魏国的军事力量，使齐国崛起为战国七雄之首。"围魏救赵"成为中国古代著名的军事战略，被后世广泛应用于军事、外交、商业等领域，表示通过间接方式解决问题的策略。</p>
+                        
+                        <h4>现代应用</h4>
+                        <p>在现代，"围魏救赵"的策略仍然被广泛应用于商业竞争、谈判策略、危机公关等领域，表示通过迂回手段解决直接难以解决的问题。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+            
+            <!-- 负荆请罪 -->
+            <div class="story-card historical">
+                <div class="story-header">
+                    <h4>负荆请罪</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">战国时期</span>
+                        <span class="meta-item">人物品德</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>战国时期，廉颇与蔺相如都是赵国的大臣。蔺相如因完璧归赵、渑池之会等功绩而位居廉颇之上。廉颇不服，扬言要羞辱蔺相如。蔺相如为了国家利益而避让。后来廉颇知道真相后，背着荆条请罪，二人成为刎颈之交。</p>
+                    <div class="story-value">
+                        <span class="value-title">寓意：</span>
+                        <span class="value-content">知错能改，真诚认错，以及为大局着想的胸怀。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="fujingqz">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-fujingqz" style="display:none">
+                    <div class="full-content">
+                        <h4>负荆请罪的历史背景</h4>
+                        <p>战国时期，赵国名将廉颇和大臣蔺相如同朝为官。蔺相如因"完璧归赵"和"渑池会见"两次外交胜利，被赵王封为上卿，位在廉颇之上。廉颇认为自己是为国征战多年的将军，而蔺相如只是一个文臣，不应位居自己之上，便扬言要在路上羞辱蔺相如。</p>
+                        
+                        <h4>蔺相如的忍让</h4>
+                        <p>蔺相如听说后，每次出门都绕道而行，避开与廉颇相遇。他的随从不解，问他为何怕廉颇。蔺相如回答说："我与廉将军同为国家栋梁，如果我们因私人恩怨而结仇，敌国就会认为赵国内部不和，趁机攻打赵国。为了国家的安全，我宁可避让。"</p>
+                        
+                        <h4>廉颇的醒悟</h4>
+                        <p>廉颇后来听说了蔺相如的话，深受感动，认识到自己的狭隘。他脱去衣服，赤着上身，背着荆条（古代认罪请罚的象征）来到蔺相如家门前，请求原谅。蔺相如见状，立刻出门相迎，两人握手言和，成为生死之交。后人称他们为"刎颈之交"。</p>
+                        
+                        <h4>典故的影响</h4>
+                        <p>"负荆请罪"成为中国文化中表示真诚认错、勇于改过的典故，体现了中国传统文化中"知错能改，善莫大焉"的道德观念。同时，这个故事也展示了蔺相如为国家大局着想的宽广胸怀，被后人广泛传颂。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+            
+            <!-- 纸上谈兵 -->
+            <div class="story-card historical">
+                <div class="story-header">
+                    <h4>纸上谈兵</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">战国时期</span>
+                        <span class="meta-item">军事教训</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>战国时期，赵国名将赵奢的儿子赵括，自幼熟读兵书，能言善辩。赵括代替廉颇指挥军队对抗秦军，因为只会纸上谈兵，不懂实战，结果被秦将白起围困在长平，赵军四十万人全军覆没。</p>
+                    <div class="story-value">
+                        <span class="value-title">寓意：</span>
+                        <span class="value-content">只有理论而缺乏实践经验的空谈是危险的。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="zhishangty">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-zhishangty" style="display:none">
+                    <div class="full-content">
+                        <h4>纸上谈兵的历史背景</h4>
+                        <p>公元前262年，秦国与赵国为争夺山西上党地区而爆发战争。赵国派廉颇为将，与秦军在长平（今山西高平）对峙。廉颇采取守势，秦军无法取胜。</p>
+                        
+                        <h4>赵括的傲慢</h4>
+                        <p>赵括是赵国名将赵奢的儿子，自幼熟读兵书，能言善辩。他多次在赵王面前批评廉颇的战略，认为廉颇太过保守。赵王信其言，派赵括替代廉颇为将。临行前，赵奢告诫儿子："用兵之道，不可纸上谈兵，需实战经验。"但赵括未听从父亲的忠告。</p>
+                        
+                        <h4>惨痛失败</h4>
+                        <p>赵括接替廉颇后，改变了原本的防御策略，主动出击。秦将白起故意示弱诱敌，然后包围赵军。赵括虽勇敢作战，但缺乏实战经验，最终被困四十六天。赵军弹尽粮绝，四十万大军全部被歼灭，赵括也战死沙场。</p>
+                        
+                        <h4>典故意义</h4>
+                        <p>"纸上谈兵"成为中国文化中形容只会空谈理论而缺乏实践经验的典故，警示人们理论必须与实践相结合，否则可能导致失败。这个典故也反映了中国古人"实践出真知"的朴素哲学思想。</p>
+                        
+                        <h4>现代启示</h4>
+                        <p>在现代社会，"纸上谈兵"的教训仍然适用于各个领域。无论是教育、管理、创业还是技术创新，都需要理论与实践相结合，而不能仅停留在空谈阶段。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 哲理典故 -->
+    <div class="stories-category">
+        <h3 class="category-title">哲理典故</h3>
+        <p class="category-desc">哲理典故蕴含深刻的人生哲理和道德伦理，对中国传统价值观念的形成有重要影响。</p>
+        
+        <div class="stories-grid">
+            <!-- 塞翁失马 -->
+            <div class="story-card philosophical">
+                <div class="story-header">
+                    <h4>塞翁失马</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">先秦时期</span>
+                        <span class="meta-item">人生哲理</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>古时候，边塞有一位老人丢失了一匹马，邻居来安慰他，他说："失马未必是坏事。"几天后，那匹马带回来一匹骏马。邻居来祝贺他，他说："得马未必是好事。"后来他儿子骑那匹马摔断了腿，邻居又来安慰他，他说："断腿未必是坏事。"一年后，边塞征兵，他儿子因为腿断了而免于征调，保住了性命。</p>
+                    <div class="story-value">
+                        <span class="value-title">寓意：</span>
+                        <span class="value-content">祸福相依，事物的发展变化往往出人意料，不能简单地判断好坏。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="saiwengsm">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-saiwengsm" style="display:none">
+                    <div class="full-content">
+                        <h4>塞翁失马的故事源流</h4>
+                        <p>这个故事最早记载于《淮南子·人间训》，是西汉刘安组织编写的一部哲学著作。故事讲述了居住在边塞的一位老人（塞翁）因祸得福、因福得祸的经历，揭示了事物发展变化的辩证关系。</p>
+                        
+                        <h4>故事的哲学意蕴</h4>
+                        <p>这个故事体现了古代中国朴素的辩证思想，认为事物是相互联系、相互转化的。好事可能带来坏结果，坏事可能引发好结果，人生中的得与失、祸与福往往互为因果，难以简单判断。</p>
+                        
+                        <h4>道家思想的影响</h4>
+                        <p>"塞翁失马"的故事反映了道家"无为"思想的影响，强调人应当顺应自然规律，保持平常心，不必为一时的得失而大喜大悲。这种超然的人生态度帮助人们在变化莫测的环境中保持内心的平静。</p>
+                        
+                        <h4>成语的衍生</h4>
+                        <p>从这个故事中衍生出多个成语，如"塞翁失马，焉知非福"、"祸兮福所倚，福兮祸所伏"等，都表达了类似的哲理。这些成语至今仍被广泛使用，成为中国人面对人生起伏的重要哲学智慧。</p>
+                        
+                        <h4>现代启示</h4>
+                        <p>在现代社会变化更加迅速的背景下，"塞翁失马"的哲理仍具有重要价值。它提醒人们保持开放的心态，长远地看待问题，不要被短期的得失所困扰，这种智慧对于应对人生挫折和不确定性具有积极意义。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+            
+            <!-- 愚公移山 -->
+            <div class="story-card philosophical">
+                <div class="story-header">
+                    <h4>愚公移山</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">先秦时期</span>
+                        <span class="meta-item">坚持不懈</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>古时候，一位名叫愚公的老人，家门前有两座大山阻碍通行。他决定带领子孙挖平这两座山。有人嘲笑他不自量力，愚公回答说："我死后有子孙，子孙又生子孙，子子孙孙无穷尽，而山不会增高，总有一天会被挖平。"感动了天帝，派神人把两座山搬走了。</p>
+                    <div class="story-value">
+                        <span class="value-title">寓意：</span>
+                        <span class="value-content">坚持不懈，持之以恒，定能克服困难，实现目标。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="yuggys">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-yuggys" style="display:none">
+                    <div class="full-content">
+                        <h4>愚公移山的故事源流</h4>
+                        <p>这个故事最早记载于《列子·汤问》，是战国时期道家著作。故事讲述了一位名叫愚公的九十岁老人，决心移走阻挡他家出行的太行山和王屋山的事迹。</p>
+                        
+                        <h4>愚公的决心</h4>
+                        <p>愚公的家住北山，门前有太行、王屋二山阻挡去路，使家人出入需要绕道而行。愚公召集家人商议，决定举家之力铲平这两座大山。邻居智叟笑他痴心妄想，愚公回答说："我虽已年老，但我死后有子孙，子孙又生子孙，子子孙孙无穷尽，而山不会增高，终有一天会被铲平。"</p>
+                        
+                        <h4>坚持不懈的精神</h4>
+                        <p>愚公带领子孙日复一日地挖山，不因艰难而退缩。这种坚持不懈的精神感动了上天，天帝派两位神人把山搬走了。虽然故事结尾带有神话色彩，但其中蕴含的持之以恒、坚韧不拔的精神却是现实的。</p>
+                        
+                        <h4>典故的现代意义</h4>
+                        <p>"愚公移山"的故事被后世广泛传颂，成为中华民族集体奋斗、不畏艰难的精神象征。在近代中国，这个故事被赋予了新的内涵，代表着中国人民改造自然、改造社会的坚定意志。</p>
+                        
+                        <h4>对比"智叟"与"愚公"</h4>
+                        <p>故事中，智叟看似"聪明"，实则短视；愚公看似"愚蠢"，实则智慧。这一对比揭示了真正的智慧不在于眼前利益的计算，而在于长远目标的坚持。这种对"愚"与"智"的辩证思考，体现了中国传统哲学的深刻智慧。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+            
+            <!-- 刻舟求剑 -->
+            <div class="story-card philosophical">
+                <div class="story-header">
+                    <h4>刻舟求剑</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">春秋时期</span>
+                        <span class="meta-item">思维方式</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>春秋时期，楚国有个人坐船渡河，不小心把剑掉入水中。他立刻在船舷上刻了一个记号，说："这是我的剑掉下去的地方。"船靠岸后，他从刻记号的地方跳入水中找剑。船已经向前行驶，而剑却沉在原处，他这种做法自然找不到剑。</p>
+                    <div class="story-value">
+                        <span class="value-title">寓意：</span>
+                        <span class="value-content">批评不懂变通、思想僵化、不知道根据实际情况调整方法的人。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="kezhqj">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-kezhqj" style="display:none">
+                    <div class="full-content">
+                        <h4>刻舟求剑的故事源流</h4>
+                        <p>这个故事最早记载于《吕氏春秋·察今》，是战国末期吕不韦组织编纂的政论著作。故事简短但寓意深刻，讽刺了不知变通的思维方式。</p>
+                        
+                        <h4>哲学思考</h4>
+                        <p>故事揭示了事物是处于不断变化中的，而不是静止不变的。那个掉剑的人只看到船和剑的相对位置，没有意识到船在水中移动，剑沉入水底后的位置不会随船移动。这是一种典型的形而上学思维方式，不懂得用发展变化的眼光看问题。</p>
+                        
+                        <h4>对比辩证思维</h4>
+                        <p>与"刻舟求剑"的思维方式相对的是辩证思维，它强调世界是普遍联系和永恒发展的，要根据具体情况采取相应的方法。辩证思维使人能够适应变化的环境，在不同的条件下作出正确的判断。</p>
+                        
+                        <h4>现代应用</h4>
+                        <p>在现代社会，"刻舟求剑"的教训仍然具有重要意义。无论是科技发展、经济政策还是个人生活，都需要与时俱进，根据实际情况调整方法和策略，而不能固守过时的观念和做法。</p>
+                        
+                        <h4>成语的衍生</h4>
+                        <p>除了"刻舟求剑"，中国还有许多类似的成语，如"守株待兔"、"画蛇添足"等，都批评了某种思维或行为上的僵化和不合理。这些成语共同构成了中华文化中反对教条主义、提倡灵活思考的重要部分。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 成语典故 -->
+    <div class="stories-category">
+        <h3 class="category-title">成语典故</h3>
+        <p class="category-desc">成语典故源于历史事件、寓言故事或文学作品，是中国语言文化中的精华。</p>
+        
+        <div class="stories-grid">
+            <!-- 画龙点睛 -->
+            <div class="story-card idiom">
+                <div class="story-header">
+                    <h4>画龙点睛</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">南北朝</span>
+                        <span class="meta-item">艺术创作</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>南朝梁代著名画家张僧繇在金陵安乐寺画了四条龙，但不点眼睛。有人问他为什么，他说："龙点睛后会飞走。"人们不信，张僧繇便给其中两条龙点上眼睛，顿时电闪雷鸣，两条龙破壁飞去，而未点睛的两条龙仍留在墙上。</p>
+                    <div class="story-value">
+                        <span class="value-title">寓意：</span>
+                        <span class="value-content">比喻作品的关键之处，点出要害，使作品生动有神。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="hualongdj">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-hualongdj" style="display:none">
+                    <div class="full-content">
+                        <h4>画龙点睛的故事源流</h4>
+                        <p>这个故事最早见于唐代张彦远的《历代名画记》。据记载，南朝梁代著名画家张僧繇在金陵安乐寺壁上画了四条栩栩如生的龙，但都没有点上眼睛。</p>
+                        
+                        <h4>点睛的神奇</h4>
+                        <p>寺中的僧人请张僧繇为龙点上眼睛，张僧繇告诉他们："龙点睛后会破壁飞去。"僧人们不相信，坚持要看点睛的效果。张僧繇只好同意，于是为其中两条龙点上了眼睛。顿时，电闪雷鸣，那两条龙立刻活了过来，破壁飞去，而未点睛的两条龙仍然留在墙上。</p>
+                        
+                        <h4>成语的意义</h4>
+                        <p>"画龙点睛"最初是指绘画技巧的重要性，特别是点明神韵和活力所在的关键细节。后来，这个成语被广泛用于文学创作、演讲、写作等领域，比喻在关键处点明主题，使整个作品或表达生动有力。</p>
+                        
+                        <h4>艺术创作的启示</h4>
+                        <p>这个故事告诉我们，在艺术创作中，把握住关键细节往往能起到画龙点睛的作用。无论是绘画、写作、音乐还是其他艺术形式，找到并突出那个能够赋予作品生命力的关键点，是艺术成功的重要因素。</p>
+                        
+                        <h4>文化影响</h4>
+                        <p>这个成语深入中国人的日常生活和文化意识，强调了在任何事物中把握关键、抓住要害的重要性。它不仅是艺术理论的一部分，也成为中国人思维方式的重要组成部分。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+            
+            <!-- 守株待兔 -->
+            <div class="story-card idiom">
+                <div class="story-header">
+                    <h4>守株待兔</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">先秦时期</span>
+                        <span class="meta-item">思维方式</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>宋国有个农夫，在田间耕作时，看见一只兔子撞在树桩上，撞死了。农夫捡起兔子，觉得不用耕作也能获得食物，于是天天守在树桩旁，希望再有兔子撞死，结果荒废了农田，一无所获。</p>
+                    <div class="story-value">
+                        <span class="value-title">寓意：</span>
+                        <span class="value-content">批评因偶然的成功而不再努力，只靠守旧方法，不知变通求进取的人。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="shouzdt">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-shouzdt" style="display:none">
+                    <div class="full-content">
+                        <h4>守株待兔的故事源流</h4>
+                        <p>这个故事最早记载于《韩非子·五蠹》，是战国时期法家著作。故事简单而寓意深刻，成为中国文化中批评因循守旧、不思进取思想的经典寓言。</p>
+                        
+                        <h4>偶然与必然</h4>
+                        <p>故事中，兔子撞死在树桩上是一种偶然现象，而农夫却误以为这种偶然可以变成必然，从而放弃了耕作这一可靠的生活方式。这反映了人们在认识世界时，有时会把偶然当作必然，导致错误的判断和行为。</p>
+                        
+                        <h4>批判守旧思想</h4>
+                        <p>这个故事主要批判的是不思进取、安于现状、坐等机遇的思想和行为。在变化的社会环境中，只有通过勤劳和主动适应环境，才能获得稳定的收获，而不是寄希望于偶然的幸运。</p>
+                        
+                        <h4>现代意义</h4>
+                        <p>在当今社会，"守株待兔"的教训仍有重要意义。它提醒人们不能过分依赖偶然的好运，而应该通过勤劳、学习和适应变化来创造自己的未来。无论是个人发展还是企业经营，都需要不断创新和进步，而不是固守过去的成功经验。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+            
+            <!-- 南辕北辙 -->
+            <div class="story-card idiom">
+                <div class="story-header">
+                    <h4>南辕北辙</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">战国时期</span>
+                        <span class="meta-item">行为矛盾</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>战国时期，有个人想到南方的楚国去，却驾车向北行驶。有人告诉他走错了方向，他却说："没关系，我的马很好，车很坚固，钱很充足。"结果当然是越走越远，永远也到不了楚国。</p>
+                    <div class="story-value">
+                        <span class="value-title">寓意：</span>
+                        <span class="value-content">比喻行动与目标相反，方向错误，再怎么努力也无法达到目的。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="nanybc">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-nanybc" style="display:none">
+                    <div class="full-content">
+                        <h4>南辕北辙的故事源流</h4>
+                        <p>这个故事出自《战国策·魏策》，原文记载："魏王欲攻邯郸，季梁请见魏王，王不见。孟卯曰：公不可以不见季梁，即见之。季梁曰：今者臣来，见赵人乘车而御者南辕适楚，臣问其故，则曰：吾马良，吾用良，钱多，食足，我何为不南矣？臣曰：南则南矣，其可至楚乎？曰：何为不可？臣曰：南与楚相反，其何以至楚国？"</p>
+                        
+                        <h4>寓言的哲理</h4>
+                        <p>故事揭示了目标与方法的一致性原则。如果采取的方法与目标相反，无论投入多少资源（好马、坚车、足钱），都不可能达成目标。这是一个关于方向正确比努力更重要的寓言。</p>
+                        
+                        <h4>古代政治劝谏</h4>
+                        <p>在原文中，季梁用这个寓言来劝告魏王，说明攻打赵国的邯郸是错误的政策方向，就像向南想去楚国却驾车向北一样，注定失败。这反映了古代谏臣常用寓言故事进行间接劝谏的方式。</p>
+                        
+                        <h4>现代应用</h4>
+                        <p>在现代社会，"南辕北辙"仍是常用成语，用来形容行动与目标相悖的情况。它提醒人们在设定目标后，要选择正确的方法和方向，避免徒劳无功。这个道理适用于个人规划、企业战略、政策制定等多个领域。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 神话传说 -->
+    <div class="stories-category">
+        <h3 class="category-title">神话传说</h3>
+        <p class="category-desc">神话传说是中国古代文化的重要组成部分，反映了先民对自然、宇宙和人类起源的想象与解释。</p>
+        
+        <div class="stories-grid">
+            <!-- 女娲补天 -->
+            <div class="story-card mythological">
+                <div class="story-header">
+                    <h4>女娲补天</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">上古神话</span>
+                        <span class="meta-item">创世神话</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>远古时代，共工与颛顼争夺帝位失败，一怒之下撞倒了不周山，天塌了一角，大地也裂开了。女娲炼五色石补天，截神龟四足撑天，擒黑龙制伏洪水，用灰土堵塞了地面的裂缝，拯救了人间。</p>
+                    <div class="story-value">
+                        <span class="value-title">象征：</span>
+                        <span class="value-content">人类与自然灾害的抗争精神，以及维护世界和谐统一的愿望。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="nwbt">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-nwbt" style="display:none">
+                    <div class="full-content">
+                        <h4>女娲补天的神话源流</h4>
+                        <p>这个神话最早见于《淮南子·览冥训》，后来在《太平御览》等古籍中也有记载。女娲是中国神话中的重要女神，除了补天外，还被传说为人类的创造者，用黄土捏造了人类。</p>
+                        
+                        <h4>灾难与拯救</h4>
+                        <p>神话描述了一场宇宙灾难：共工神怒而触不周山，天柱折，地维绝，天向西北倾斜，日月星辰向那里流动；大地东南方向凹陷，江河湖海的水都向那里奔流。面对这场灾难，女娲炼五色石以补苍天，断鳌足以立四极，杀黑龙以济冀州，积芦灰以止滔水，拯救了世界。</p>
+                        
+                        <h4>宇宙观的反映</h4>
+                        <p>这个神话反映了古代中国人关于宇宙结构的想象：天像一个穹顶，大地平坦，四周有支柱（天柱）支撑。同时，它也体现了古人对宇宙秩序和平衡的追求，以及对抗自然灾害的愿望。</p>
+                        
+                        <h4>文化意义</h4>
+                        <p>女娲补天的神话不仅解释了自然现象（如为什么天向西北倾斜，河水向东南流动），也体现了中国古代"天人合一"的哲学思想，以及人类主动改造自然的精神。女娲作为女性创造神的形象，也反映了中国远古时期可能存在的母系氏族社会的文化记忆。</p>
+                        
+                        <h4>艺术影响</h4>
+                        <p>这个神话被广泛用于中国古代文学艺术创作，从汉代画像石到唐宋诗词，再到明清小说，女娲补天的形象始终是艺术家们喜爱的主题。在现代，这个神话仍然通过各种艺术形式传承和发展，成为中华文化的重要象征之一。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+            
+            <!-- 嫦娥奔月 -->
+            <div class="story-card mythological">
+                <div class="story-header">
+                    <h4>嫦娥奔月</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">上古神话</span>
+                        <span class="meta-item">月亮传说</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>后羿从西王母那里获得了不死药，准备和妻子嫦娥一起服用。但在后羿外出打猎时，嫦娥因担心被小人偷走，就自己服下了不死药。药力使她飘向天空，最后飞到了月亮上，成为月中仙子，只有玉兔陪伴。</p>
+                    <div class="story-value">
+                        <span class="value-title">象征：</span>
+                        <span class="value-content">对长生不死的追求与代价，以及对团圆的向往。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="ceby">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-ceby" style="display:none">
+                    <div class="full-content">
+                        <h4>嫦娥奔月的神话源流</h4>
+                        <p>这个神话最早见于《淮南子·览冥训》的片段记载，后来在唐代诗人李商隐的《嫦娥》诗中得到进一步发展，到了唐末五代的《太平广记》中才有较为完整的记述。</p>
+                        
+                        <h4>神话的不同版本</h4>
+                        <p>关于嫦娥奔月的神话有多个版本：有的说她是为了逃避暴君；有的说她偷吃了后羿的不死药；还有的说她是为了保护不死药不被恶人盗取而食用。这些不同版本反映了神话在流传过程中的演变和人们对其不同的理解。</p>
+                        
+                        <h4>月亮崇拜</h4>
+                        <p>嫦娥奔月的神话与古代中国的月亮崇拜有关。月亮以其阴晴圆缺的变化规律，成为时间循环和永恒的象征。嫦娥作为月神，既代表了月亮的神秘美丽，也象征着无法回归的离别与孤独。</p>
+                        
+                        <h4>中秋文化</h4>
+                        <p>这个神话是中国传统中秋节文化的重要组成部分。中秋节赏月、吃月饼的习俗与嫦娥奔月的传说紧密相连，表达了人们对团圆的向往。在中秋夜赏月时，人们想象嫦娥在月宫中的孤独，更加珍视与家人的团聚。</p>
+                        
+                        <h4>文学艺术影响</h4>
+                        <p>嫦娥奔月的故事激发了无数诗人、画家和艺术家的创作灵感。从唐代诗人李白的"嫦娥应悔偷灵药，碧海青天夜夜心"，到现代各种影视、动画作品，嫦娥的形象不断被重新诠释，成为中华文化中最为人熟知的神话人物之一。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+            
+            <!-- 精卫填海 -->
+            <div class="story-card mythological">
+                <div class="story-header">
+                    <h4>精卫填海</h4>
+                    <div class="story-meta">
+                        <span class="meta-item">上古神话</span>
+                        <span class="meta-item">坚持不懈</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <p>炎帝之女女娃游东海时溺水而死，魂魄化为一种似乌鸦的鸟，名叫精卫。精卫含恨东海，每天衔西山的树枝和石子投入大海，立志要填平东海。尽管任务艰巨，但她从不放弃，成为中国文化中坚持不懈的象征。</p>
+                    <div class="story-value">
+                        <span class="value-title">象征：</span>
+                        <span class="value-content">不畏艰难、坚持不懈的精神，以及对抗强大自然力量的决心。</span>
+                    </div>
+                    <button class="btn story-expand-btn" data-story="jwth">查看详情</button>
+                </div>
+                
+                <!-- 故事完整内容(默认隐藏) -->
+                <div class="story-full" id="story-jwth" style="display:none">
+                    <div class="full-content">
+                        <h4>精卫填海的神话源流</h4>
+                        <p>这个神话最早见于《山海经·北山经》："又北二百里，曰发鸠之山。其上多柘木。有鸟焉，其状如乌，文首，白喙，赤足，名曰精卫，其鸣自詨。是炎帝之少女名曰女娃，女娃游于东海，溺而不返，故为精卫，常衔西山之木石，以堙于东海。"</p>
+                        
+                        <h4>神话的象征意义</h4>
+                        <p>精卫填海的神话象征着人类面对巨大困难时的坚韧不拔精神。精卫虽然是一只小鸟，面对的是广阔无边的东海，但她从不放弃自己的目标，日复一日地衔木石投入大海，表现出了无比的毅力和决心。</p>
+                        
+                        <h4>复仇与抗争</h4>
+                        <p>这个神话也可以被解读为对不公正命运的抗争。精卫因东海而死，她不甘心接受这个命运，而是选择与东海进行永无止境的战斗。这种不屈不挠的精神，反映了古代中国人对命运的主动态度。</p>
+                        
+                        <h4>文学影响</h4>
+                        <p>精卫填海的故事被后世诗人广泛采用，成为文学创作的重要意象。唐代诗人李白在《梦游天姥吟留别》中写道："精卫衔微木，将以填沧海"，借用精卫形象表达自己的政治抱负。在现代文学中，"精卫精神"也常被用来象征不畏强权、坚持理想的人物形象。</p>
+                        
+                        <h4>现代启示</h4>
+                        <p>在现代社会，精卫填海的故事仍然具有重要的启示意义。它告诉人们，面对看似不可能完成的任务，也不应该轻易放弃，而是应该坚持不懈地努力。这种精神对于个人追求梦想、民族争取独立、人类探索未知等各个领域都有重要的指导意义。</p>
+                    </div>
+                    <button class="btn story-collapse-btn">收起</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 典故影响与价值 -->
+    <div class="card scroll-animation">
+        <h3 class="card-title">典故的历史影响与现代价值</h3>
+        <div class="card-content">
+            <div class="value-intro">
+                <p>中国古代文化典故承载着丰富的历史文化信息和深刻的哲理，不仅在古代对中国人的思维方式和价值观产生了深远影响，在现代社会仍然具有重要的参考价值。</p>
+            </div>
+            
+            <div class="value-grid">
+                <div class="value-item">
+                    <div class="item-icon"><i class="fa fa-book"></i></div>
+                    <h4>语言传承</h4>
+                    <p>典故成为汉语成语、俗语、谚语的重要来源，丰富了中国语言的表达方式，使语言更加简洁、生动和形象。许多典故被浓缩为四字成语，便于传诵和记忆。</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="item-icon"><i class="fa fa-heart"></i></div>
+                    <h4>价值传递</h4>
+                    <p>典故传递着中华民族的核心价值观和道德规范，如仁爱、忠义、智慧、勇敢、诚信等，通过生动的故事形式将这些抽象的价值观具体化，使人们更容易理解和接受。</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="item-icon"><i class="fa fa-lightbulb-o"></i></div>
+                    <h4>思维启迪</h4>
+                    <p>典故中蕴含的思维方式和处世智慧，如辩证思考、灵活变通、坚持不懈等，对现代人应对各种挑战和困难仍有重要的启发意义。这些智慧超越了时代的限制，具有永恒的价值。</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="item-icon"><i class="fa fa-university"></i></div>
+                    <h4>教育功能</h4>
+                    <p>典故是中国传统教育的重要内容，通过讲述故事来传授知识和道理，使学习过程更加生动有趣。在现代教育中，典故仍然是重要的教学资源，帮助学生理解中国传统文化。</p>
+                </div>
+            </div>
+            
+            <div class="modern-application">
+                <h4>典故的现代应用</h4>
+                <p>在现代社会，中国古代文化典故依然广泛应用于各个领域：</p>
+                <ul>
+                    <li><strong>文学创作：</strong>作家引用或改编典故，为作品增添文化底蕴和艺术魅力</li>
+                    <li><strong>广告宣传：</strong>广告语巧妙运用典故，使信息传达更加简洁有力</li>
+                    <li><strong>演讲辩论：</strong>引用典故，使论证更加生动形象，增强说服力</li>
+                    <li><strong>企业管理：</strong>从典故中汲取管理智慧，指导现代企业的运营和决策</li>
+                    <li><strong>个人修养：</strong>通过学习典故，提升自身文化素养和道德水平</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
