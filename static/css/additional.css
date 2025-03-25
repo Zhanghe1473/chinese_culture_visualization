@@ -1,0 +1,256 @@
+/* 创建一些占位图片，用于演示 */
+.placeholder-image {
+    background-color: #f0f0f0;
+    border: 1px dashed #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: #666;
+    font-size: 1rem;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+/* 添加一些背景纹理和装饰元素 */
+.bg-pattern-1 {
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="%23f8f4e6"/><path d="M20 20h60v60H20z" fill="%23f0e6d2" stroke="%23d4a017" stroke-width="1"/></svg>');
+    background-repeat: repeat;
+}
+
+.bg-pattern-2 {
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="%23f8f4e6"/><circle cx="50" cy="50" r="30" fill="%23f0e6d2" stroke="%239d2933" stroke-width="1"/></svg>');
+    background-repeat: repeat;
+}
+
+/* 添加一些动画效果 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+/* 添加一些中国传统元素 */
+.chinese-border {
+    border: 10px solid transparent;
+    border-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="none"/><path d="M20 20h60v60H20z" fill="none" stroke="%239d2933" stroke-width="5" stroke-dasharray="10 5"/></svg>');
+    border-image-slice: 30;
+    border-image-repeat: round;
+    padding: 20px;
+}
+
+.chinese-divider {
+    height: 30px;
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="30" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg"><path d="M0 15h100" stroke="%239d2933" stroke-width="2" stroke-dasharray="5 3"/><circle cx="50" cy="15" r="5" fill="%23d4a017"/></svg>');
+    background-repeat: repeat-x;
+    margin: 30px 0;
+}
+
+/* 改进首页英雄区域 */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, var(--background-color), transparent);
+}
+
+.hero-title {
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.hero-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+/* 添加一些响应式改进 */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+}
+
+/* 添加一些交互效果 */
+.hover-zoom {
+    transition: transform 0.3s ease;
+}
+
+.hover-zoom:hover {
+    transform: scale(1.05);
+}
+
+.hover-shadow {
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* 添加一些特效 */
+.glow-effect {
+    position: relative;
+}
+
+.glow-effect::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    z-index: -1;
+    filter: blur(15px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.glow-effect:hover::before {
+    opacity: 0.7;
+}
+
+/* 添加一些中国传统色彩渐变 */
+.chinese-gradient-1 {
+    background: linear-gradient(135deg, #9d2933 0%, #d4a017 100%);
+}
+
+.chinese-gradient-2 {
+    background: linear-gradient(135deg, #1a3263 0%, #9d2933 100%);
+}
+
+.chinese-gradient-3 {
+    background: linear-gradient(135deg, #d4a017 0%, #1a3263 100%);
+}
+
+/* 添加一些装饰性图案 */
+.chinese-pattern {
+    position: relative;
+}
+
+.chinese-pattern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h40v40H0z" fill="none"/><path d="M20 5l5 5-5 5-5-5z" fill="%239d2933" fill-opacity="0.1"/><path d="M20 25l5 5-5 5-5-5z" fill="%239d2933" fill-opacity="0.1"/><path d="M5 20l5 5-5 5-5-5z" fill="%23d4a017" fill-opacity="0.1"/><path d="M25 20l5 5-5 5-5-5z" fill="%23d4a017" fill-opacity="0.1"/></svg>');
+    background-repeat: repeat;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+/* 添加一些特殊效果 */
+.paper-effect {
+    position: relative;
+    background-color: #f8f4e6;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.paper-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.05"/></svg>');
+    opacity: 0.5;
+    z-index: -1;
+}
+
+/* 添加一些特殊效果 */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 15px;
+}
+
+.scroll-indicator::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: white;
+    border-radius: 50%;
+    animation: scrollIndicator 2s infinite;
+}
+
+@keyframes scrollIndicator {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+}

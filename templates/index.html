@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华夏瑰宝-文化科学可视化展示系统</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/additional.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 加载动画 -->
+    <div class="loader">
+        <div class="loader-inner"></div>
+    </div>
+
+    <!-- 移动设备菜单按钮 -->
+    <div class="menu-toggle">
+        <i class="fa fa-bars"></i>
+    </div>
+
+    <!-- 头部 -->
+    <header class="header">
+        <h1 class="header-title">华夏瑰宝-文化科学可视化展示系统</h1>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <ul class="nav-list">
+            <li class="nav-item" data-target="home">
+                <i class="nav-icon fa fa-home"></i>
+                <span class="nav-text">首页</span>
+            </li>
+            <li class="nav-item" data-target="civilization-overview">
+                <i class="nav-icon fa fa-book"></i>
+                <span class="nav-text">文明概述</span>
+            </li>
+            <li class="nav-item" data-target="scientific-achievements">
+                <i class="nav-icon fa fa-flask"></i>
+                <span class="nav-text">科学成就</span>
+            </li>
+            <li class="nav-item" data-target="notable-works">
+                <i class="nav-icon fa fa-bookmark"></i>
+                <span class="nav-text">杰出著作</span>
+            </li>
+            <li class="nav-item" data-target="notable-scholars">
+                <i class="nav-icon fa fa-user"></i>
+                <span class="nav-text">杰出学者</span>
+            </li>
+            <li class="nav-item" data-target="cultural-stories">
+                <i class="nav-icon fa fa-comment"></i>
+                <span class="nav-text">文化典故</span>
+            </li>
+            <li class="nav-item" data-target="cultural-customs">
+                <i class="nav-icon fa fa-calendar"></i>
+                <span class="nav-text">文化习俗</span>
+            </li>
+            <li class="nav-item" data-target="data-summary">
+                <i class="nav-icon fa fa-bar-chart"></i>
+                <span class="nav-text">数据汇总</span>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 首页 -->
+        <section id="home" class="section">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">华夏瑰宝</h1>
+                    <p class="hero-subtitle">探索中华五千年文明的灿烂瑰宝</p>
+                    <button class="btn hero-btn" onclick="document.querySelector('.nav-item[data-target=\'civilization-overview\']').click()">开始探索</button>
+                </div>
+            </div>
+
+            <div class="module-preview">
+                <h2 class="module-preview-title page-title">探索领域</h2>
+                <div class="grid">
+                    <div class="card scroll-animation">
+                        <h3 class="card-title">文明概述</h3>
+                        <p class="card-content">通过交互式时间线，了解中国古代文明的发展历程，探索各朝代的主要文化科学成就。</p>
+                        <img src="{{ url_for('static', filename='images/civilization_preview.jpg') }}" alt="文明概述预览" class="img-fluid">
+                        <button class="btn" onclick="document.querySelector('.nav-item[data-target=\'civilization-overview\']').click()">查看详情</button>
+                    </div>
+                    <div class="card scroll-animation">
+                        <h3 class="card-title">科学成就</h3>
+                        <p class="card-content">探索古代中国在天文、数学、医学、农学等领域的科学成就，了解四大发明及其他重要技术。</p>
+                        <img src="{{ url_for('static', filename='images/science_preview.jpg') }}" alt="科学成就预览" class="img-fluid">
+                        <button class="btn" onclick="document.querySelector('.nav-item[data-target=\'scientific-achievements\']').click()">查看详情</button>
+                    </div>
+                    <div class="card scroll-animation">
+                        <h3 class="card-title">杰出著作</h3>
+                        <p class="card-content">了解中国古代重要典籍和文献，探索这些著作对中国和世界文明的深远影响。</p>
+                        <img src="{{ url_for('static', filename='images/books_preview.jpg') }}" alt="杰出著作预览" class="img-fluid">
+                        <button class="btn" onclick="document.querySelector('.nav-item[data-target=\'notable-works\']').click()">查看详情</button>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="card scroll-animation">
+                        <h3 class="card-title">杰出学者</h3>
+                        <p class="card-content">认识古代科学家和思想家，了解他们的生平、贡献和对后世的影响。</p>
+                        <img src="{{ url_for('static', filename='images/scholars_preview.jpg') }}" alt="杰出学者预览" class="img-fluid">
+                        <button class="btn" onclick="document.querySelector('.nav-item[data-target=\'notable-scholars\']').click()">查看详情</button>
+                    </div>
+                    <div class="card scroll-animation">
+                        <h3 class="card-title">文化典故</h3>
+                        <p class="card-content">探索流传至今的重要文化典故，了解其历史背景和文化内涵。</p>
+                        <img src="{{ url_for('static', filename='images/stories_preview.jpg') }}" alt="文化典故预览" class="img-fluid">
+                        <button class="btn" onclick="document.querySelector('.nav-item[data-target=\'cultural-stories\']').click()">查看详情</button>
+                    </div>
+                    <div class="card scroll-animation">
+                        <h3 class="card-title">文化习俗</h3>
+                        <p class="card-content">了解中国传统节日、礼仪习俗及其历史渊源，感受中华文化的独特魅力。</p>
+                        <img src="{{ url_for('static', filename='images/customs_preview.jpg') }}" alt="文化习俗预览" class="img-fluid">
+                        <button class="btn" onclick="document.querySelector('.nav-item[data-target=\'cultural-customs\']').click()">查看详情</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="featured-content">
+                <h2 class="featured-content-title page-title">特色内容</h2>
+                <div class="card scroll-animation">
+                    <h3 class="card-title">数据可视化展示</h3>
+                    <p class="card-content">通过丰富的图表和可视化方式，直观展示中国古代文化发展的数据统计和比较分析。</p>
+                    <div class="chart-container" id="dynasty-timeline-chart"></div>
+                    <button class="btn" onclick="document.querySelector('.nav-item[data-target=\'data-summary\']').click()">查看更多数据</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文明概述 -->
+        <section id="civilization-overview" class="section">
+            <h2 class="page-title">文明概述</h2>
+            <div class="card">
+                <h3 class="card-title">中华文明发展历程</h3>
+                <p class="card-content">
+                    中华文明是世界上唯一没有中断而延续至今的古老文明，拥有五千多年的悠久历史。从远古时期的传说中的三皇五帝，到夏商周三代，再到秦汉统一，魏晋南北朝的分裂与融合，隋唐的繁荣昌盛，宋元明清的发展变革，中华文明在漫长的历史长河中不断积累和创新，形成了独具特色的文化体系。
+                </p>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>夏朝（约前2070年-前1600年）</h3>
+                            <p>中国第一个世袭制朝代，传说由禹建立。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>商朝（约前1600年-前1046年）</h3>
+                            <p>青铜器和甲骨文的发展，奴隶制度的确立。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>周朝（约前1046年-前256年）</h3>
+                            <p>分为西周和东周，礼乐文明的形成，诸子百家的兴起。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>秦朝（前221年-前207年）</h3>
+                            <p>中国历史上第一个统一的多民族的中央集权国家。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>汉朝（前202年-220年）</h3>
+                            <p>分为西汉和东汉，开创了丝绸之路，儒学成为官方意识形态。</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn">查看完整时间线</button>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">中华文明的特点</h3>
+                <p class="card-content">
+                    中华文明具有连续性、包容性和创新性等特点。在漫长的历史发展过程中，中华文明不断吸收外来文化的精华，同时保持自身的核心价值观念，形成了独特的文化体系。中华文明重视人与自然的和谐相处，强调"天人合一"的哲学思想，注重家庭和社会的和谐稳定，形成了以儒家思想为核心的价值体系。
+                </p>
+                <img src="{{ url_for('static', filename='images/civilization_features.jpg') }}" alt="中华文明特点" class="img-fluid">
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">中华文明的贡献</h3>
+                <p class="card-content">
+                    中华文明对世界文明的发展做出了重要贡献。在科技方面，四大发明（造纸术、印刷术、火药和指南针）改变了世界历史的进程；在哲学思想方面，儒家、道家、法家等学派的思想影响了东亚文化圈的发展；在文学艺术方面，诗词歌赋、书法绘画等艺术形式展现了中华文化的独特魅力；在制度文明方面，科举制度为世界选拔人才制度提供了借鉴。
+                </p>
+                <div class="grid">
+                    <div class="card">
+                        <h4>科技贡献</h4>
+                        <img src="{{ url_for('static', filename='images/four_inventions.jpg') }}" alt="四大发明" class="img-thumbnail">
+                    </div>
+                    <div class="card">
+                        <h4>思想贡献</h4>
+                        <img src="{{ url_for('static', filename='images/philosophy.jpg') }}" alt="中国哲学" class="img-thumbnail">
+                    </div>
+                    <div class="card">
+                        <h4>艺术贡献</h4>
+                        <img src="{{ url_for('static', filename='images/art.jpg') }}" alt="中国艺术" class="img-thumbnail">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 科学成就 -->
+        <section id="scientific-achievements" class="section">
+            <h2 class="page-title">科学成就</h2>
+            
+            <div class="card">
+                <h3 class="card-title">古代中国科学成就概览</h3>
+                <p class="card-content">
+                    中国古代在天文、数学、医学、农学、工艺技术等领域取得了辉煌的成就，为世界科学技术的发展做出了重要贡献。这些成就不仅反映了中国古代劳动人民的智慧和创造力，也体现了中国古代科学家的探索精神和实践能力。
+                </p>
+                <div class="chart-container" id="science-achievement-chart"></div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">四大发明</h3>
+                <p class="card-content">
+                    中国古代的四大发明——造纸术、印刷术、火药和指南针，对世界文明的发展产生了深远的影响。这些发明不仅改变了中国的历史进程，也推动了世界历史的发展。
+                </p>
+                <div class="chart-container" id="inventions-impact-chart"></div>
+                <div class="grid">
+                    <div class="card hover-zoom">
+                        <h4>造纸术</h4>
+                        <div class="placeholder-image chinese-pattern">造纸术图片</div>
+                        <p>东汉时期蔡伦改进造纸术，使纸张成为主要的书写材料，促进了文化的传播和知识的积累。造纸术传入欧洲后，大大促进了欧洲文艺复兴和科学革命的发展。</p>
+                    </div>
+                    <div class="card hover-zoom">
+                        <h4>印刷术</h4>
+                        <div class="placeholder-image chinese-pattern">印刷术图片</div>
+                        <p>唐代发明雕版印刷，宋代毕昇发明活字印刷，大大提高了书籍的生产效率，促进了知识的传播。印刷术传入欧洲后，成为推动欧洲文艺复兴和宗教改革的重要因素。</p>
+                    </div>
+                    <div class="card hover-zoom">
+                        <h4>火药</h4>
+                        <div class="placeholder-image chinese-pattern">火药图片</div>
+                        <p>唐代炼丹家在炼丹过程中发现火药，后来被用于军事和民用领域，改变了战争的形态。火药传入欧洲后，促进了欧洲军事技术的革新，也被用于采矿等民用领域。</p>
+                    </div>
+                    <div class="card hover-zoom">
+                        <h4>指南针</h4>
+                        <div class="placeholder-image chinese-pattern">指南针图片</div>
+                        <p>战国时期发现磁石指南性能，宋代发明指南针，促进了航海事业的发展，为地理大发现奠定了基础。指南针传入欧洲后，使欧洲人能够进行远洋航行，开启了地理大发现时代。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card chinese-gradient-1">
+                <h3 class="card-title">天文学成就</h3>
+                <p class="card-content">
+                    中国古代天文学有着悠久的历史，早在商周时期就有了天文观测记录。古代天文学家不仅观测和记录了天象变化，还发明了多种天文仪器，编制了精确的历法，为农业生产和社会生活提供了重要指导。
+                </p>
+                <div class="grid">
+                    <div class="card glow-effect">
+                        <h4>浑天仪</h4>
+                        <div class="placeholder-image chinese-pattern">浑天仪图片</div>
+                        <p>东汉张衡发明浑天仪，用于观测天体运行。浑天仪是世界上最早的天体运行仪器之一，能够模拟天体运行，用于天文观测和教学。</p>
+                    </div>
+                    <div class="card glow-effect">
+                        <h4>简仪</h4>
+                        <div class="placeholder-image chinese-pattern">简仪图片</div>
+                        <p>用于测量太阳高度和昼夜长短的变化。简仪是中国古代重要的天文观测仪器，通过观测太阳影子的长度，可以确定节气和时间。</p>
+                    </div>
+                    <div class="card glow-effect">
+                        <h4>《授时历》</h4>
+                        <div class="placeholder-image chinese-pattern">授时历图片</div>
+                        <p>元代郭守敬主持编制的历法，是当时世界上最精确的历法之一。《授时历》将一年定为365.2425天，与现代公历相差仅26秒，体现了中国古代天文学的高度成就。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card chinese-gradient-2">
+                <h3 class="card-title">数学成就</h3>
+                <p class="card-content">
+                    中国古代数学有着独特的发展路径，形成了以算筹计算为特点的数学体系。古代数学家在数论、代数、几何等领域都有重要发现，解决了许多实际问题。
+                </p>
+                <div class="grid">
+                    <div class="card paper-effect">
+                        <h4>九九乘法表</h4>
+                        <div class="placeholder-image chinese-pattern">九九乘法表图片</div>
+                        <p>中国古代发明的乘法口诀表，至今仍在使用。九九乘法表简洁实用，是中国古代数学教育的重要内容，也是世界上最早的乘法表之一。</p>
+                    </div>
+                    <div class="card paper-effect">
+                        <h4>赤鸿术</h4>
+                        <div class="placeholder-image chinese-pattern">赤鸿术图片</div>
+                        <p>中国古代解一次同余式组的方法，相当于今天的中国剩余定理。赤鸿术是世界数学史上的重要成就，比欧洲同类方法早1000多年。</p>
+                    </div>
+                    <div class="card paper-effect">
+                        <h4>勾股定理</h4>
+                        <div class="placeholder-image chinese-pattern">勾股定理图片</div>
+                        <p>中国古代称直角三角形三边关系为勾股定理，《周髀算经》中有相关记载。中国古代不仅知道勾股定理，还能够求出勾股数，如《九章算术》中记载了多组勾股数。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card chinese-gradient-3">
+                <h3 class="card-title">医学成就</h3>
+                <p class="card-content">
+                    中国古代医学形成了以阴阳五行学说为理论基础，以经络、脏腑学说为核心的独特医学体系。古代医学家在疾病诊断、治疗和预防方面积累了丰富的经验，创造了针灸、中药等特色疗法。
+                </p>
+                <div class="grid">
+                    <div class="card animate-fadeInUp">
+                        <h4>《黄帝内经》</h4>
+                        <div class="placeholder-image chinese-pattern">黄帝内经图片</div>
+                        <p>中国最早的医学理论著作，奠定了中医理论体系的基础。《黄帝内经》包括《素问》和《灵枢》两部分，系统阐述了人体生理、病理、诊断和治疗等方面的理论。</p>
+                    </div>
+                    <div class="card animate-fadeInUp">
+                        <h4>针灸</h4>
+                        <div class="placeholder-image chinese-pattern">针灸图片</div>
+                        <p>中国特有的医疗方法，通过刺激人体特定穴位来治疗疾病。针灸疗法历史悠久，《黄帝内经》中已有详细记载，是中医学的重要组成部分。</p>
+                    </div>
+                    <div class="card animate-fadeInUp">
+                        <h4>华佗麻醉术</h4>
+                        <div class="placeholder-image chinese-pattern">华佗麻醉术图片</div>
+                        <p>东汉名医华佗发明的"麻沸散"，是世界上最早的麻醉药物之一。华佗利用麻沸散进行外科手术，开创了中国外科学的先河。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 杰出著作 -->
+        <section id="notable-works" class="section">
+            <h2 class="page-title">杰出著作</h2>
+            
+            <div class="card">
+                <h3 class="card-title">中国古代著作概览</h3>
+                <p class="card-content">
+                    中国古代留下了浩如烟海的典籍，涵盖经、史、子、集四部，内容包括哲学、历史、文学、科学技术等各个领域。这些著作不仅是中华文明的重要组成部分，也是人类文明的宝贵财富。
+                </p>
+                <div class="chart-container" id="books-trend-chart"></div>
+            </div>
+            
+            <div class="card chinese-gradient-1">
+                <h3 class="card-title">经典著作</h3>
+                <div class="grid">
+                    <div class="card hover-zoom">
+                        <h4>《论语》</h4>
+                        <div class="placeholder-image chinese-pattern">论语图片</div>
+                        <p>记录孔子及其弟子言行的语录集，是儒家学派的重要经典。《论语》集中体现了孔子的政治主张、伦理思想、道德观念和教育原则，对中国和东亚文化产生了深远影响。</p>
+                    </div>
+                    <div class="card hover-zoom">
+                        <h4>《道德经》</h4>
+                        <div class="placeholder-image chinese-pattern">道德经图片</div>
+                        <p>道家创始人老子的著作，阐述了"道"和"德"的哲学思想。《道德经》提出"道法自然"的思想，强调无为而治，对中国哲学、宗教、政治、艺术等方面产生了深远影响。</p>
+                    </div>
+                    <div class="card hover-zoom">
+                        <h4>《孙子兵法》</h4>
+                        <div class="placeholder-image chinese-pattern">孙子兵法图片</div>
+                        <p>春秋时期孙武撰写的兵法著作，是世界上最早的军事著作之一。《孙子兵法》提出"知己知彼，百战不殆"等军事思想，被誉为"兵学圣典"，对世界军事理论有重要影响。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card chinese-gradient-2">
+                <h3 class="card-title">科技著作</h3>
+                <div class="grid">
+                    <div class="card glow-effect">
+                        <h4>《本草纲目》</h4>
+                        <div class="placeholder-image chinese-pattern">本草纲目图片</div>
+                        <p>明代李时珍编撰的医药学著作，收录药物1892种，被誉为"东方医学巨典"。《本草纲目》系统总结了中国传统医药学成就，对世界医药学发展做出了重要贡献。</p>
+                    </div>
+                    <div class="card glow-effect">
+                        <h4>《天工开物》</h4>
+                        <div class="placeholder-image chinese-pattern">天工开物图片</div>
+                        <p>明代宋应星编著的综合性科学技术著作，被称为"中国17世纪的工艺百科全书"。《天工开物》详细记录了中国古代农业、手工业等生产技术，是研究中国古代科技史的重要文献。</p>
+                    </div>
+                    <div class="card glow-effect">
+                        <h4>《九章算术》</h4>
+                        <div class="placeholder-image chinese-pattern">九章算术图片</div>
+                        <p>汉代数学著作，系统总结了先秦至西汉时期的数学成就。《九章算术》包含246个数学问题及其解法，涉及分数运算、比例、面积体积计算等，是中国古代最重要的数学著作之一。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card chinese-gradient-3">
+                <h3 class="card-title">历史著作</h3>
+                <div class="grid">
+                    <div class="card paper-effect">
+                        <h4>《史记》</h4>
+                        <div class="placeholder-image chinese-pattern">史记图片</div>
+                        <p>西汉司马迁撰写的中国第一部纪传体通史，记载了上自黄帝下至汉武帝时期约3000年的历史。《史记》被誉为"史家之绝唱，无韵之离骚"，开创了中国传统史学的典范。</p>
+                    </div>
+                    <div class="card paper-effect">
+                        <h4>《资治通鉴》</h4>
+                        <div class="placeholder-image chinese-pattern">资治通鉴图片</div>
+                        <p>北宋司马光主编的编年体史书，记载了从战国至五代共1362年的历史。《资治通鉴》强调以史为鉴，可以知兴替，是中国古代最重要的编年体史书。</p>
+                    </div>
+                    <div class="card paper-effect">
+                        <h4>《汉书》</h4>
+                        <div class="placeholder-image chinese-pattern">汉书图片</div>
+                        <p>东汉班固编撰的记载西汉一代的断代史，是中国第一部纪传体断代史。《汉书》开创了"一朝一代有一史"的编史模式，对后世史学产生了深远影响。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card bg-pattern-2">
+                <h3 class="card-title">文学著作</h3>
+                <div class="grid">
+                    <div class="card animate-fadeInUp">
+                        <h4>《诗经》</h4>
+                        <div class="placeholder-image chinese-pattern">诗经图片</div>
+                        <p>中国最早的诗歌总集，收录了西周初年至春秋中叶的305篇诗歌。《诗经》分为风、雅、颂三部分，内容涉及政治、军事、婚姻、爱情等多个方面，是研究先秦社会生活的重要文献。</p>
+                    </div>
+                    <div class="card animate-fadeInUp">
+                        <h4>《楚辞》</h4>
+                        <div class="placeholder-image chinese-pattern">楚辞图片</div>
+                        <p>以屈原作品为主的楚国文学作品集，代表作有《离骚》《九歌》等。《楚辞》与《诗经》并称为中国古代两大诗歌源头，开创了浪漫主义诗歌传统。</p>
+                    </div>
+                    <div class="card animate-fadeInUp">
+                        <h4>《红楼梦》</h4>
+                        <div class="placeholder-image chinese-pattern">红楼梦图片</div>
+                        <p>清代曹雪芹创作的章回体长篇小说，被誉为中国古典小说的巅峰之作。《红楼梦》以贾、史、王、薛四大家族的兴衰为背景，描绘了封建社会末期的方方面面，具有高度的思想性和艺术性。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 杰出学者 -->
+        <section id="notable-scholars" class="section">
+            <h2 class="page-title">杰出学者</h2>
+            
+            <div class="card">
+                <h3 class="card-title">中国古代学者概览</h3>
+                <p class="card-content">
+                    中国古代涌现出众多杰出学者，他们在哲学、科学、文学、艺术等领域做出了卓越贡献，推动了中华文明的发展，也对世界文明产生了深远影响。
+                </p>
+                <div class="chart-container" id="scholars-distribution-chart"></div>
+            </div>
+            
+            <div class="card chinese-border">
+                <h3 class="card-title">思想家</h3>
+                <div class="grid">
+                    <div class="card hover-shadow">
+                        <h4>孔子（前551年-前479年）</h4>
+                        <div class="placeholder-image chinese-pattern">孔子图片</div>
+                        <p>儒家学派创始人，著有《论语》，其思想对中国和东亚文化产生了深远影响。孔子提倡"仁、义、礼、智、信"的道德观念，创立了私学，培养了众多弟子，被尊为"至圣先师"。</p>
+                    </div>
+                    <div class="card hover-shadow">
+                        <h4>老子</h4>
+                        <div class="placeholder-image chinese-pattern">老子图片</div>
+                        <p>道家学派创始人，著有《道德经》，提出"道法自然"等哲学思想。老子强调无为而治，主张"上善若水"，其思想对中国哲学、宗教、政治、艺术等方面产生了深远影响。</p>
+                    </div>
+                    <div class="card hover-shadow">
+                        <h4>墨子（约前468年-前376年）</h4>
+                        <div class="placeholder-image chinese-pattern">墨子图片</div>
+                        <p>墨家学派创始人，提出"兼爱""非攻"等思想，在光学、力学等方面也有重要贡献。墨子主张"尚贤、尚同、兼爱、非攻、节用、节葬、非乐、非命、尊天、明鬼"十大主张，对当时社会产生了重要影响。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">科学家</h3>
+                <div class="chinese-divider"></div>
+                <div class="grid">
+                    <div class="card glow-effect">
+                        <h4>张衡（78年-139年）</h4>
+                        <div class="placeholder-image chinese-pattern">张衡图片</div>
+                        <p>东汉天文学家、数学家、发明家，发明了世界上第一台地动仪和浑天仪。张衡在天文、地理、数学等领域都有重要贡献，著有《灵宪》《浑天仪图注》等著作，被誉为"科圣"。</p>
+                    </div>
+                    <div class="card glow-effect">
+                        <h4>祖冲之（429年-500年）</h4>
+                        <div class="placeholder-image chinese-pattern">祖冲之图片</div>
+                        <p>南北朝时期数学家、天文学家，将圆周率计算到小数点后七位（3.1415926-3.1415927）。祖冲之还改进了历法，制定了《大明历》，对中国古代数学和天文学发展做出了重要贡献。</p>
+                    </div>
+                    <div class="card glow-effect">
+                        <h4>李时珍（1518年-1593年）</h4>
+                        <div class="placeholder-image chinese-pattern">李时珍图片</div>
+                        <p>明代医学家、药物学家，编撰《本草纲目》，对中国医药学发展做出重大贡献。李时珍一生致力于医药研究，亲自采药、验方，《本草纲目》收录药物1892种，被誉为"东方医学巨典"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card bg-pattern-1">
+                <h3 class="card-title">文学家</h3>
+                <div class="grid">
+                    <div class="card animate-fadeInUp">
+                        <h4>屈原（约前340年-前278年）</h4>
+                        <div class="placeholder-image chinese-pattern">屈原图片</div>
+                        <p>战国时期楚国诗人、政治家，中国文学史上第一位伟大的爱国诗人。屈原创作了《离骚》《九歌》《天问》等不朽诗篇，开创了中国浪漫主义诗歌传统，对后世文学产生了深远影响。</p>
+                    </div>
+                    <div class="card animate-fadeInUp">
+                        <h4>李白（701年-762年）</h4>
+                        <div class="placeholder-image chinese-pattern">李白图片</div>
+                        <p>唐代伟大的浪漫主义诗人，被誉为"诗仙"。李白诗歌想象丰富，语言豪放，风格奔放，代表作有《将进酒》《行路难》《蜀道难》等，与杜甫并称为"李杜"。</p>
+                    </div>
+                    <div class="card animate-fadeInUp">
+                        <h4>杜甫（712年-770年）</h4>
+                        <div class="placeholder-image chinese-pattern">杜甫图片</div>
+                        <p>唐代伟大的现实主义诗人，被誉为"诗圣"。杜甫诗歌题材广泛，风格沉郁顿挫，尤以反映社会现实著称，代表作有《三吏》《三别》《登高》等，被称为"诗史"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card paper-effect">
+                <h3 class="card-title">艺术家</h3>
+                <div class="grid">
+                    <div class="card hover-zoom">
+                        <h4>王羲之（303年-361年）</h4>
+                        <div class="placeholder-image chinese-pattern">王羲之图片</div>
+                        <p>东晋书法家，被誉为"书圣"。王羲之精通各种书体，尤以行书著称，代表作《兰亭序》被誉为"天下第一行书"，对中国书法艺术发展产生了深远影响。</p>
+                    </div>
+                    <div class="card hover-zoom">
+                        <h4>顾恺之（约348年-409年）</h4>
+                        <div class="placeholder-image chinese-pattern">顾恺之图片</div>
+                        <p>东晋画家、文学家，被誉为"画圣"。顾恺之擅长人物画，提出"以形写神"的绘画理论，代表作有《洛神赋图》《女史箴图》等，对中国绘画艺术发展产生了重要影响。</p>
+                    </div>
+                    <div class="card hover-zoom">
+                        <h4>张择端（1085年-1145年）</h4>
+                        <div class="placeholder-image chinese-pattern">张择端图片</div>
+                        <p>北宋画家，擅长风俗画和建筑画。张择端的代表作《清明上河图》生动描绘了北宋都城汴京的繁华景象，被誉为中国十大传世名画之一，具有极高的艺术价值和历史价值。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文化典故 -->
+        <section id="cultural-stories" class="section">
+            <h2 class="page-title">文化典故</h2>
+            
+            <div class="card">
+                <h3 class="card-title">经典典故</h3>
+                <p class="card-content">
+                    中国古代流传下来的文化典故蕴含着丰富的哲理和智慧，是中华文化的重要组成部分。这些典故通过生动的故事形式，传递着中华民族的价值观念和处世哲学。
+                </p>
+                <div class="chart-container" id="cultural-stories-chart"></div>
+                <div class="grid">
+                    <div class="card">
+                        <h4>愚公移山</h4>
+                        <div class="placeholder-image chinese-pattern">愚公移山图片</div>
+                        <p>出自《列子·汤问》，讲述了愚公决心移走太行山和王屋山的故事，比喻坚持不懈的精神。</p>
+                    </div>
+                    <div class="card">
+                        <h4>守株待兔</h4>
+                        <div class="placeholder-image chinese-pattern">守株待兔图片</div>
+                        <p>出自《韩非子·五蠹》，讲述了宋国农夫因偶然得到一只撞死在树桩上的兔子，便放弃耕作守着树桩等待兔子的故事，比喻因循守旧、不思进取。</p>
+                    </div>
+                    <div class="card">
+                        <h4>塞翁失马</h4>
+                        <div class="placeholder-image chinese-pattern">塞翁失马图片</div>
+                        <p>出自《淮南子·人间训》，讲述了边塞老人丢失马匹后反而因祸得福的故事，比喻祸福相依，世事难料。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">历史典故</h3>
+                <div class="grid">
+                    <div class="card hover-zoom">
+                        <h4>负荆请罪</h4>
+                        <div class="placeholder-image chinese-pattern">负荆请罪图片</div>
+                        <p>出自《史记·廉颇蔺相如列传》，讲述了廉颇向蔺相如认错的故事，比喻诚恳地承认错误并请求原谅。</p>
+                    </div>
+                    <div class="card hover-zoom">
+                        <h4>卧薪尝胆</h4>
+                        <div class="placeholder-image chinese-pattern">卧薪尝胆图片</div>
+                        <p>出自《史记·越王勾践世家》，讲述了越王勾践卧薪尝胆、励精图治、最终复国的故事，比喻刻苦自励、发奋图强。</p>
+                    </div>
+                    <div class="card hover-zoom">
+                        <h4>纸上谈兵</h4>
+                        <div class="placeholder-image chinese-pattern">纸上谈兵图片</div>
+                        <p>出自《史记·廉颇蔺相如列传》，讲述了赵括只会纸上谈兵，实战中却大败的故事，比喻空谈理论，不能解决实际问题。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card paper-effect">
+                <h3 class="card-title">哲理典故</h3>
+                <div class="grid">
+                    <div class="card glow-effect">
+                        <h4>刻舟求剑</h4>
+                        <div class="placeholder-image chinese-pattern">刻舟求剑图片</div>
+                        <p>出自《吕氏春秋·察今》，讲述了一个人的剑掉入河中，便在船上刻下记号，以为到岸后可以根据记号找到剑的故事，比喻不懂事物发展变化规律，拘泥于死板的方法。</p>
+                    </div>
+                    <div class="card glow-effect">
+                        <h4>画蛇添足</h4>
+                        <div class="placeholder-image chinese-pattern">画蛇添足图片</div>
+                        <p>出自《战国策·齐策》，讲述了有人画蛇比赛，一人画得最快却因多画了蛇足而失败的故事，比喻做了多余的事反而坏了事。</p>
+                    </div>
+                    <div class="card glow-effect">
+                        <h4>揠苗助长</h4>
+                        <div class="placeholder-image chinese-pattern">揠苗助长图片</div>
+                        <p>出自《孟子·公孙丑上》，讲述了宋国农夫为了让禾苗长得更快而拔高禾苗，结果导致禾苗枯死的故事，比喻违背事物发展规律，急于求成反而坏事。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文化习俗 -->
+        <section id="cultural-customs" class="section">
+            <h2 class="page-title">文化习俗</h2>
+            
+            <div class="card">
+                <h3 class="card-title">传统节日</h3>
+                <p class="card-content">
+                    中国传统节日是中华文化的重要组成部分，承载着丰富的历史文化内涵和民族情感。这些节日通过各种习俗活动，表达了人们对美好生活的向往和对自然规律的敬畏。
+                </p>
+                <div class="chart-container" id="festival-distribution-chart"></div>
+                <div class="grid">
+                    <div class="card chinese-border">
+                        <h4>春节</h4>
+                        <div class="placeholder-image chinese-pattern">春节图片</div>
+                        <p>中国最重要的传统节日，起源于上古时期年祭活动，有贴春联、放鞭炮、吃团圆饭等习俗。春节象征着新的开始，是家人团聚、辞旧迎新的重要时刻。</p>
+                    </div>
+                    <div class="card chinese-border">
+                        <h4>端午节</h4>
+                        <div class="placeholder-image chinese-pattern">端午节图片</div>
+                        <p>为纪念爱国诗人屈原，有赛龙舟、吃粽子、挂艾草等习俗。端午节也是驱邪避灾、祈求健康的传统节日，体现了中华民族的爱国情怀和对健康的追求。</p>
+                    </div>
+                    <div class="card chinese-border">
+                        <h4>中秋节</h4>
+                        <div class="placeholder-image chinese-pattern">中秋节图片</div>
+                        <p>源于古代秋季祭月习俗，有赏月、吃月饼、团圆等习俗。中秋节象征着团圆和丰收，是中国人表达思乡之情和家庭和睦的重要节日。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">礼仪习俗</h3>
+                <div class="chinese-divider"></div>
+                <div class="grid">
+                    <div class="card animate-fadeInUp">
+                        <h4>婚礼习俗</h4>
+                        <div class="placeholder-image chinese-pattern">婚礼习俗图片</div>
+                        <p>中国传统婚礼有"六礼"：纳采、问名、纳吉、纳征、请期、亲迎，体现了中国古代婚姻制度和礼仪文化。传统婚礼讲究"父母之命，媒妁之言"，强调家族联姻和礼制规范。</p>
+                    </div>
+                    <div class="card animate-fadeInUp">
+                        <h4>祭祀习俗</h4>
+                        <div class="placeholder-image chinese-pattern">祭祀习俗图片</div>
+                        <p>中国古代有祭天、祭地、祭祖等祭祀活动，反映了中国古代的宗教信仰和伦理观念。祭祀活动强调"慎终追远"，表达了对祖先的敬仰和对传统的传承。</p>
+                    </div>
+                    <div class="card animate-fadeInUp">
+                        <h4>茶道</h4>
+                        <div class="placeholder-image chinese-pattern">茶道图片</div>
+                        <p>中国茶文化源远流长，茶道融合了儒、道、佛三家思想，体现了中国传统文化的精髓。茶道讲究"清、敬、怡、真"，既是一种生活艺术，也是一种精神追求。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card bg-pattern-1">
+                <h3 class="card-title">民俗活动</h3>
+                <div class="grid">
+                    <div class="card hover-shadow">
+                        <h4>舞龙舞狮</h4>
+                        <div class="placeholder-image chinese-pattern">舞龙舞狮图片</div>
+                        <p>舞龙舞狮是中国传统民间艺术，常在节庆活动中表演，象征着吉祥如意、驱邪避灾。龙是中华民族的图腾，舞龙活动体现了中国人对龙的崇拜和对美好生活的向往。</p>
+                    </div>
+                    <div class="card hover-shadow">
+                        <h4>剪纸艺术</h4>
+                        <div class="placeholder-image chinese-pattern">剪纸艺术图片</div>
+                        <p>剪纸是中国民间传统艺术，用于装饰窗户、门户，表达美好祝愿。剪纸题材丰富，包括花鸟鱼虫、人物故事、吉祥图案等，是中国民间艺术的瑰宝。</p>
+                    </div>
+                    <div class="card hover-shadow">
+                        <h4>皮影戏</h4>
+                        <div class="placeholder-image chinese-pattern">皮影戏图片</div>
+                        <p>皮影戏是中国古老的民间艺术，通过灯光将皮革制作的人物投影在白幕上，配以说唱表演故事。皮影戏融合了雕刻、绘画、音乐、文学等多种艺术形式，是中国传统文化的重要组成部分。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数据汇总 -->
+        <section id="data-summary" class="section">
+            <h2 class="page-title">数据汇总</h2>
+            
+            <div class="card">
+                <h3 class="card-title">朝代时间线</h3>
+                <p class="card-content">
+                    中国古代历经多个朝代，每个朝代都有其独特的文化特点和历史贡献。以下是中国主要朝代的持续时间统计。
+                </p>
+                <div class="chart-container" id="dynasty-timeline-chart"></div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">科学成就分布</h3>
+                <p class="card-content">
+                    中国古代在各个科学领域都有重要成就，以下是各领域成就的数量分布。
+                </p>
+                <div class="chart-container" id="science-achievement-chart"></div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">著作数量变化趋势</h3>
+                <p class="card-content">
+                    随着历史的发展，中国古代著作的数量和类型也在不断变化。以下是不同时期各类著作数量的变化趋势。
+                </p>
+                <div class="chart-container" id="books-trend-chart"></div>
+            </div>
+            
+            <!-- 其他数据可视化模块可以按照类似结构添加 -->
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">华夏瑰宝-文化科学可视化展示系统 &copy; 2025</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">关于我们</a>
+                <a href="#" class="footer-link">联系方式</a>
+                <a href="#" class="footer-link">使用帮助</a>
+            </div>
+            <p>本系统展示内容仅限于1911年以前的中国古代文化相关成就</p>
+        </div>
+    </footer>
+
+    <!-- 装饰元素 -->
+    <div class="decoration decoration-top-right"></div>
+    <div class="decoration decoration-bottom-left"></div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/additional.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/visualization.js') }}"></script>
+</body>
+</html>
