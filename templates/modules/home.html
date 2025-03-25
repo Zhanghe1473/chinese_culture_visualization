@@ -1,0 +1,170 @@
+<!-- 首页模块 -->
+<section id="home" class="section active">
+    <div class="hero-section">
+        <!-- 添加背景视频 -->
+        <video autoplay muted loop class="hero-video">
+            <source src="{{ url_for('static', filename='videos/chinese_culture_intro.mp4') }}" type="video/mp4">
+            您的浏览器不支持视频播放
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">华夏瑰宝</h1>
+            <p class="hero-subtitle">探索中华五千年文明的灿烂瑰宝</p>
+            <button class="btn hero-btn" data-navigate-to="civilization_overview">开始探索</button>
+        </div>
+        <!-- 添加滚动提示 -->
+        <div class="scroll-indicator"></div>
+    </div>
+
+    <div class="module-preview">
+        <h2 class="module-preview-title page-title">探索领域</h2>
+
+        <!-- 使用更紧凑的三列布局 -->
+        <div class="module-cards">
+            <!-- 文明概述卡片 -->
+            <div class="module-card scroll-animation">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='images/preview/civilization_preview.jpg') }}" alt="文明概述预览">
+                    <div class="card-image-overlay">
+                        <h3>文明概述</h3>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>通过交互式时间线，了解中国古代文明的发展历程，探索各朝代的主要文化科学成就。</p>
+                    <button class="btn" data-navigate-to="civilization_overview">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 科学成就卡片 -->
+            <div class="module-card scroll-animation">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='images/preview/science_preview.jpg') }}" alt="科学成就预览">
+                    <div class="card-image-overlay">
+                        <h3>科学成就</h3>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>探索古代中国在天文、数学、医学、农学等领域的科学成就，了解四大发明及其他重要技术。</p>
+                    <button class="btn" data-navigate-to="scientific_achievements">查看详情</button>
+                </div>
+            </div>
+
+            <!-- 杰出著作卡片 -->
+            <div class="module-card scroll-animation">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='images/preview/books_preview.jpg') }}" alt="杰出著作预览">
+                    <div class="card-image-overlay">
+                        <h3>杰出著作</h3>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>了解中国古代重要典籍和文献，探索这些著作对中国和世界文明的深远影响。</p>
+                    <button class="btn" data-navigate-to="notable_works">查看详情</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="module-cards">
+            <div class="module-card scroll-animation">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='images/preview/scholars_preview.jpg') }}" alt="杰出学者预览">
+                    <div class="card-image-overlay">
+                        <h3>杰出学者</h3>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>认识古代科学家和思想家，了解他们的生平、贡献和对后世的影响。</p>
+                    <button class="btn" data-navigate-to="notable_scholars">查看详情</button>
+                </div>
+            </div>
+
+            <div class="module-card scroll-animation">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='images/preview/stories_preview.jpg') }}" alt="文化典故预览">
+                    <div class="card-image-overlay">
+                        <h3>文化典故</h3>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>探索流传至今的重要文化典故，了解其历史背景和文化内涵。</p>
+                    <button class="btn" data-navigate-to="cultural_stories">查看详情</button>
+                </div>
+            </div>
+
+            <div class="module-card scroll-animation">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='images/preview/customs_preview.jpg') }}" alt="文化习俗预览">
+                    <div class="card-image-overlay">
+                        <h3>文化习俗</h3>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>了解中国传统节日、礼仪习俗及其历史渊源，感受中华文化的独特魅力。</p>
+                    <button class="btn" data-navigate-to="cultural_customs">查看详情</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="featured-content">
+        <h2 class="featured-content-title page-title">特色内容</h2>
+        <div class="card scroll-animation">
+            <h3 class="card-title">数据可视化展示</h3>
+            <p class="card-content">通过丰富的图表和可视化方式，直观展示中国古代文化发展的数据统计和比较分析。</p>
+            <div class="chart-container" id="dynasty-timeline-chart"></div>
+            <button class="btn" data-navigate-to="data_summary">查看更多数据</button>
+        </div>
+
+        <!-- 添加文化精粹轮播 -->
+        <div class="cultural-carousel">
+            <h3 class="card-title">文化精粹</h3>
+            <div class="carousel-container">
+                <div class="carousel-slide">
+                    <img src="{{ url_for('static', filename='images/carousel/culture_carousel_1.jpg') }}" alt="文化精粹1">
+                    <div class="carousel-caption">四大发明 - 造纸术</div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="{{ url_for('static', filename='images/carousel/culture_carousel_2.jpg') }}" alt="文化精粹2">
+                    <div class="carousel-caption">唐诗宋词</div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="{{ url_for('static', filename='images/carousel/culture_carousel_3.jpg') }}" alt="文化精粹3">
+                    <div class="carousel-caption">中医药文化</div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="{{ url_for('static', filename='images/carousel/culture_carousel_4.jpg') }}" alt="文化精粹4">
+                    <div class="carousel-caption">书法艺术</div>
+                </div>
+                <button class="carousel-btn prev-btn"><i class="fa fa-chevron-left"></i></button>
+                <button class="carousel-btn next-btn"><i class="fa fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- 添加图片拼贴展示 -->
+        <div class="image-mosaic scroll-animation">
+            <div class="mosaic-title">中华文化瑰宝掠影</div>
+            <div class="mosaic-container">
+                <div class="mosaic-item large">
+                    <img src="{{ url_for('static', filename='images/mosaic/great_wall.jpg') }}" alt="长城">
+                    <div class="mosaic-caption">万里长城</div>
+                </div>
+                <div class="mosaic-item">
+                    <img src="{{ url_for('static', filename='images/mosaic/terracotta.jpg') }}" alt="兵马俑">
+                    <div class="mosaic-caption">兵马俑</div>
+                </div>
+                <div class="mosaic-item">
+                    <img src="{{ url_for('static', filename='images/mosaic/porcelain.jpg') }}" alt="青花瓷">
+                    <div class="mosaic-caption">青花瓷</div>
+                </div>
+                <div class="mosaic-item">
+                    <img src="{{ url_for('static', filename='images/mosaic/calligraphy.jpg') }}" alt="书法">
+                    <div class="mosaic-caption">书法艺术</div>
+                </div>
+                <div class="mosaic-item">
+                    <img src="{{ url_for('static', filename='images/mosaic/silk.jpg') }}" alt="丝绸">
+                    <div class="mosaic-caption">丝绸之路</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

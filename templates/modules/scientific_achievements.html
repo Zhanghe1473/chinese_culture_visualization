@@ -1,0 +1,259 @@
+<h3>天文学成就</h3>
+                <p>中国古代天文学有着悠久的历史，早在商周时期就有了天文观测记录</p>
+            </div>
+        </div>
+
+        <div class="astronomy-content">
+            <div class="astronomy-intro">
+                <p>古代天文学家不仅观测和记录了天象变化，还发明了多种天文仪器，编制了精确的历法，为农业生产和社会生活提供了重要指导。</p>
+            </div>
+
+            <div class="astronomy-grid">
+                <div class="astronomy-item">
+                    <div class="item-image">
+                        <img src="{{ url_for('static', filename='images/astronomy/armillary_sphere.jpg') }}" alt="浑天仪">
+                    </div>
+                    <div class="item-content">
+                        <h4>浑天仪</h4>
+                        <p>东汉张衡发明浑天仪，用于观测天体运行。浑天仪是世界上最早的天体运行仪器之一，能够模拟天体运行，用于天文观测和教学。</p>
+                        <div class="content-badge">公元100年</div>
+                    </div>
+                </div>
+
+                <div class="astronomy-item">
+                    <div class="item-image">
+                        <img src="{{ url_for('static', filename='images/astronomy/gnomon.jpg') }}" alt="简仪">
+                    </div>
+                    <div class="item-content">
+                        <h4>简仪</h4>
+                        <p>用于测量太阳高度和昼夜长短的变化。简仪是中国古代重要的天文观测仪器，通过观测太阳影子的长度，可以确定节气和时间。</p>
+                        <div class="content-badge">公元前7世纪</div>
+                    </div>
+                </div>
+
+                <!-- 添加更多天文成就项目 -->
+                <div class="astronomy-item">
+                    <div class="item-image">
+                        <img src="{{ url_for('static', filename='images/astronomy/star_map.jpg') }}" alt="星图">
+                    </div>
+                    <div class="item-content">
+                        <h4>敦煌星图</h4>
+                        <p>唐代绘制的星图，是现存世界上最早的星图之一，记录了1339颗恒星，分为283个星官。</p>
+                        <div class="content-badge">唐代</div>
+                    </div>
+                </div>
+
+                <div class="astronomy-item">
+                    <div class="item-image">
+                        <img src="{{ url_for('static', filename='images/astronomy/shoushi_calendar.jpg') }}" alt="授时历">
+                    </div>
+                    <div class="item-content">
+                        <h4>《授时历》</h4>
+                        <p>元代郭守敬主持编制的历法，是当时世界上最精确的历法之一。《授时历》将一年定为365.2425天，与现代公历相差仅26秒。</p>
+                        <div class="content-badge">元代1281年</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 增强的天文成就互动展示 -->
+            <div class="astronomy-interactive">
+                <h4>中国古代天象观测</h4>
+                <div class="interactive-container">
+                    <div class="interactive-sky-map" id="ancient-sky-map">
+                        <!-- 天象互动地图将通过JavaScript加载 -->
+                    </div>
+                    <div class="interactive-controls">
+                        <div class="control-panel">
+                            <h5>古代天象记录</h5>
+                            <div class="control-buttons">
+                                <button class="control-btn" data-sky-object="sun">
+                                    <img src="{{ url_for('static', filename='images/icons/sun_icon.png') }}" alt="日食">
+                                    <span>日食记录</span>
+                                </button>
+                                <button class="control-btn" data-sky-object="moon">
+                                    <img src="{{ url_for('static', filename='images/icons/moon_icon.png') }}" alt="月相">
+                                    <span>月相观测</span>
+                                </button>
+                                <button class="control-btn" data-sky-object="stars">
+                                    <img src="{{ url_for('static', filename='images/icons/star_icon.png') }}" alt="星象">
+                                    <span>星象分布</span>
+                                </button>
+                                <button class="control-btn" data-sky-object="comets">
+                                    <img src="{{ url_for('static', filename='images/icons/comet_icon.png') }}" alt="彗星">
+                                    <span>彗星记录</span>
+                                </button>
+                            </div>
+                            <div class="control-info">
+                                <p id="sky-object-info">点击上方按钮查看不同天象记录</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 数学成就部分 -->
+    <div class="math-section">
+        <h3 class="section-title">数学成就</h3>
+        <div class="section-intro">
+            <p>中国古代数学具有鲜明的实用性特点，在解决实际问题的过程中，古代数学家发展了丰富的数学理论和方法。</p>
+        </div>
+
+        <div class="math-achievements-grid">
+            <div class="math-achievement-card">
+                <div class="card-header">
+                    <h4>九章算术</h4>
+                    <div class="era-badge">汉代</div>
+                </div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='images/math/jiuzhang.jpg') }}" alt="九章算术" class="achievement-image">
+                    <div class="achievement-content">
+                        <p>《九章算术》是中国古代最重要的数学著作之一，成书于汉代，包含246个应用题，涵盖了方程、比例、面积、体积等数学知识。</p>
+                        <div class="achievement-highlights">
+                            <div class="highlight-item">
+                                <div class="highlight-icon"><i class="fa fa-star"></i></div>
+                                <div class="highlight-text">方程解法</div>
+                            </div>
+                            <div class="highlight-item">
+                                <div class="highlight-icon"><i class="fa fa-star"></i></div>
+                                <div class="highlight-text">面积计算</div>
+                            </div>
+                            <div class="highlight-item">
+                                <div class="highlight-icon"><i class="fa fa-star"></i></div>
+                                <div class="highlight-text">比例理论</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="math-achievement-card">
+                <div class="card-header">
+                    <h4>祖冲之与圆周率</h4>
+                    <div class="era-badge">南北朝</div>
+                </div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='images/math/zuchongzhi.jpg') }}" alt="祖冲之" class="achievement-image">
+                    <div class="achievement-content">
+                        <p>南北朝时期的数学家祖冲之将圆周率精确到小数点后七位，提出了"密率"（3.1415926）和"约率"（22/7），是当时世界上最精确的圆周率计算。</p>
+                        <div class="achievement-formula">
+                            <span class="formula-label">密率：</span>
+                            <span class="formula">π ≈ 355/113 ≈ 3.1415926</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 更多数学成就卡片 -->
+        </div>
+
+        <!-- 数学成就交互展示 -->
+        <div class="math-interactive">
+            <h4>中国古代数学成就时间线</h4>
+            <div id="math-timeline-chart" class="chart-container"></div>
+        </div>
+    </div>
+
+    <!-- 医学成就部分 -->
+    <div class="medicine-section">
+        <h3 class="section-title">医学成就</h3>
+        <p class="section-intro">中国古代医学独树一帜，形成了以阴阳五行学说为理论基础，以脏腑经络学说为核心的中医体系，并在临床实践中积累了丰富的诊疗经验。</p>
+
+        <!-- 中医经典著作 -->
+        <div class="medicine-classics">
+            <h4>医学经典著作</h4>
+            <div class="classics-container">
+                <div class="classic-book">
+                    <div class="book-cover">
+                        <img src="{{ url_for('static', filename='images/medicine/huangdi_neijing.jpg') }}" alt="黄帝内经">
+                    </div>
+                    <div class="book-info">
+                        <h5>《黄帝内经》</h5>
+                        <div class="book-meta">战国至西汉时期</div>
+                        <p>中医理论的奠基之作，系统阐述了人体生理、病理以及诊断、治疗的基本理论。</p>
+                    </div>
+                </div>
+
+                <div class="classic-book">
+                    <div class="book-cover">
+                        <img src="{{ url_for('static', filename='images/medicine/shennong_bencao.jpg') }}" alt="神农本草经">
+                    </div>
+                    <div class="book-info">
+                        <h5>《神农本草经》</h5>
+                        <div class="book-meta">秦汉时期</div>
+                        <p>中国最早的药物学专著，记载了365种药物，并首创"上、中、下"三品分类法。</p>
+                    </div>
+                </div>
+
+                <div class="classic-book">
+                    <div class="book-cover">
+                        <img src="{{ url_for('static', filename='images/medicine/shanghan_lun.jpg') }}" alt="伤寒论">
+                    </div>
+                    <div class="book-info">
+                        <h5>《伤寒论》</h5>
+                        <div class="book-meta">东汉</div>
+                        <p>东汉张仲景所著，是中国最早的临床医学著作，奠定了中医辨证论治的基础。</p>
+                    </div>
+                </div>
+
+                <div class="classic-book">
+                    <div class="book-cover">
+                        <img src="{{ url_for('static', filename='images/medicine/bencao_gangmu.jpg') }}" alt="本草纲目">
+                    </div>
+                    <div class="book-info">
+                        <h5>《本草纲目》</h5>
+                        <div class="book-meta">明代</div>
+                        <p>明代李时珍历时27年编纂，收录药物1892种，被誉为东方医药巨典。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 中医重要发现 -->
+        <div class="medicine-discoveries">
+            <h4>重要医学发现与技术</h4>
+            <div class="discoveries-grid">
+                <div class="discovery-item">
+                    <div class="discovery-icon"><img src="{{ url_for('static', filename='images/medicine/acupuncture_icon.png') }}" alt="针灸"></div>
+                    <div class="discovery-content">
+                        <h5>针灸</h5>
+                        <p>起源于新石器时代，战国时期已形成系统理论，是中国独特的医疗技术。</p>
+                    </div>
+                </div>
+
+                <div class="discovery-item">
+                    <div class="discovery-icon"><img src="{{ url_for('static', filename='images/medicine/pulse_icon.png') }}" alt="脉诊"></div>
+                    <div class="discovery-content">
+                        <h5>脉诊</h5>
+                        <p>中医独特的诊断方法，春秋战国时期已广泛应用，《内经》记载了24种脉象。</p>
+                    </div>
+                </div>
+
+                <div class="discovery-item">
+                    <div class="discovery-icon"><img src="{{ url_for('static', filename='images/medicine/herbal_icon.png') }}" alt="汤药"></div>
+                    <div class="discovery-content">
+                        <h5>汤药</h5>
+                        <p>《伤寒论》创立了方剂理论，确立了"君臣佐使"的配伍原则。</p>
+                    </div>
+                </div>
+
+                <div class="discovery-item">
+                    <div class="discovery-icon"><img src="{{ url_for('static', filename='images/medicine/surgery_icon.png') }}" alt="外科"></div>
+                    <div class="discovery-content">
+                        <h5>外科</h5>
+                        <p>华佗创立"麻沸散"麻醉法，开创了中国外科手术的先河。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 医学互动展示 -->
+        <div class="medicine-interactive">
+            <h4>中医经络穴位图</h4>
+            <div class="acupuncture-map" id="acupuncture-interactive-map">
+                <!-- 经络穴位互动图将通过JavaScript加载 -->
+            </div>
+        </div>
+    </div>
+</section>

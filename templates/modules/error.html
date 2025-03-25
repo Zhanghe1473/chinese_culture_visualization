@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}错误 - 华夏瑰宝-文化科学可视化展示系统{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-icon">
+        <i class="fa fa-exclamation-circle"></i>
+    </div>
+    <h2 class="error-title">出错了</h2>
+    <p class="error-message">{{ error }}</p>
+    <div class="error-actions">
+        <a href="/" class="btn">返回首页</a>
+    </div>
+</div>
+{% endblock %}
