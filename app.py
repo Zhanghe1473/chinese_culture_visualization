@@ -5,17 +5,34 @@ import io
 
 app = Flask(__name__)
 
-# 确保静态文件正确配置
+# Ensure static files are correctly configured
 app.static_folder = 'static'
+app.template_folder = 'templates'
+
+# Set debug mode to see detailed error messages
+app.config['DEBUG'] = True
+
+# Add proper MIME types for static files
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # Disable caching for development
 
 
-# 首页路由
+# Set up proper paths for templates and static files
+@app.context_processor
+def inject_paths():
+    return dict(
+        static_url=app.static_url_path,
+        base_url=request.url_root
+    )
+
+
+# Homepage route
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Get module parameter from URL if exists
+    module = request.args.get('module', default='home')
+    return render_template('index.html', initial_module=module)
 
 
-# 模块加载路由 - 用于AJAX加载各个模块内容
 # Modified route for module loading
 @app.route('/module/<module_id>')
 def load_module(module_id):
@@ -37,9 +54,11 @@ def load_module(module_id):
 
         if template_file:
             # Render the module template
+            app.logger.info(f"Loading module: {module_id} from template: {template_file}")
             return render_template(template_file)
         else:
             # If the module ID is invalid, return an error message
+            app.logger.error(f"Invalid module ID: {module_id}")
             return render_template('error.html', error='模块不存在'), 404
     except Exception as e:
         # Log detailed error information
@@ -48,10 +67,11 @@ def load_module(module_id):
         app.logger.error(traceback.format_exc())
         return render_template('error.html', error=f'加载模块时出错: {str(e)}'), 500
 
-# API路由 - 朝代成就数据
+
+# API routes - kept as they were in the original file
 @app.route('/api/dynasty-achievements')
 def get_dynasty_achievements():
-    # 示例数据
+    # Example data
     data = {
         'dynasties': ['先秦', '秦汉', '魏晋南北朝', '隋唐', '宋元', '明清'],
         'science': [60, 75, 65, 85, 90, 80],
@@ -61,10 +81,9 @@ def get_dynasty_achievements():
     return jsonify(data)
 
 
-# API路由 - 四大发明影响力数据
 @app.route('/api/inventions-impact')
 def get_inventions_impact():
-    # 示例数据
+    # Example data
     data = {
         'inventions': ['造纸术', '印刷术', '火药', '指南针'],
         'china_impact': [90, 95, 80, 85],
@@ -73,10 +92,9 @@ def get_inventions_impact():
     return jsonify(data)
 
 
-# API路由 - 学者分布数据
 @app.route('/api/scholars-distribution')
 def get_scholars_distribution():
-    # 示例数据
+    # Example data
     data = {
         'dynasties': ['先秦', '秦汉', '魏晋南北朝', '隋唐', '宋元', '明清'],
         'philosophers': [15, 8, 5, 7, 10, 6],
@@ -87,10 +105,9 @@ def get_scholars_distribution():
     return jsonify(data)
 
 
-# API路由 - 著作数量数据
 @app.route('/api/books-trend')
 def get_books_trend():
-    # 示例数据
+    # Example data
     data = {
         'dynasties': ['先秦', '秦汉', '魏晋南北朝', '隋唐', '宋元', '明清'],
         'classics': [30, 85, 120, 180, 250, 320],
@@ -101,10 +118,9 @@ def get_books_trend():
     return jsonify(data)
 
 
-# API路由 - 文化典故分布数据
 @app.route('/api/stories-distribution')
 def get_stories_distribution():
-    # 示例数据
+    # Example data
     data = {
         'categories': ['哲理典故', '历史典故', '寓言故事', '成语典故', '民间传说'],
         'counts': [35, 42, 28, 65, 30]
@@ -112,10 +128,9 @@ def get_stories_distribution():
     return jsonify(data)
 
 
-# API路由 - 传统节日数据
 @app.route('/api/festival-distribution')
 def get_festival_distribution():
-    # 示例数据
+    # Example data
     data = {
         'festivals': ['春节', '元宵节', '清明节', '端午节', '七夕节', '中秋节', '重阳节', '冬至'],
         'impact': [10, 8, 7, 9, 6, 9, 5, 7]
@@ -123,12 +138,11 @@ def get_festival_distribution():
     return jsonify(data)
 
 
-# API路由 - 天文互动数据
 @app.route('/api/astronomy-data/<data_type>')
 def get_astronomy_data(data_type):
-    # 根据请求的数据类型返回相应的天文数据
+    # Return appropriate astronomical data based on data_type
     if data_type == 'sun':
-        # 日食记录数据
+        # Solar eclipse records
         data = {
             'title': '中国古代日食记录',
             'description': '中国是世界上最早记录日食的国家之一，早在公元前2137年就有了日食记录。',
@@ -140,7 +154,7 @@ def get_astronomy_data(data_type):
             ]
         }
     elif data_type == 'moon':
-        # 月相观测数据
+        # Lunar phase observations
         data = {
             'title': '中国古代月相观测',
             'description': '中国古代很早就开始观测月相变化，并根据月相变化制定农历。',
@@ -152,7 +166,7 @@ def get_astronomy_data(data_type):
             ]
         }
     elif data_type == 'stars':
-        # 星象分布数据
+        # Star distribution data
         data = {
             'title': '中国古代星象系统',
             'description': '中国古代将天空分为三垣二十八宿。',
@@ -174,7 +188,7 @@ def get_astronomy_data(data_type):
             ]
         }
     elif data_type == 'comets':
-        # 彗星记录数据
+        # Comet records
         data = {
             'title': '中国古代彗星记录',
             'description': '中国古代天文学家对彗星的观测非常重视，有大量详细记载。',
@@ -186,14 +200,13 @@ def get_astronomy_data(data_type):
             ]
         }
     else:
-        # 如果请求的数据类型无效，返回错误信息
+        # If data type is invalid, return an error message
         return jsonify({'error': '无效的数据类型'}), 400
 
     return jsonify(data)
 
 
-# 为缺失的图片提供占位图片路由
-# Improved placeholder image route
+# Improved placeholder image route for missing images
 @app.route('/static/images/<path:filename>')
 def placeholder_image(filename):
     """Provide placeholder image for missing images"""
@@ -206,8 +219,7 @@ def placeholder_image(filename):
     try:
         # Get directory structure
         directory = os.path.dirname(os.path.join(app.static_folder, 'images', filename))
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+        os.makedirs(directory, exist_ok=True)
 
         # Create a placeholder image
         img = Image.new('RGB', (400, 300), color=(248, 244, 230))  # Use theme background color
@@ -236,26 +248,27 @@ def placeholder_image(filename):
         app.logger.error(f"Failed to create placeholder image: {str(e)}")
         return f"图片占位符: {filename} (错误: {str(e)})", 200
 
-# 静态文件结构检查路由
+
+# Static file structure check route
 @app.route('/check_static')
 def check_static():
-    """检查静态文件结构"""
+    """Check static file structure"""
     static_folder = app.static_folder
     structure = {}
 
-    # 检查CSS文件
+    # Check CSS files
     css_folder = os.path.join(static_folder, 'css')
     structure['css'] = os.path.exists(css_folder)
     if structure['css']:
         structure['css_files'] = os.listdir(css_folder)
 
-    # 检查JS文件
+    # Check JS files
     js_folder = os.path.join(static_folder, 'js')
     structure['js'] = os.path.exists(js_folder)
     if structure['js']:
         structure['js_files'] = os.listdir(js_folder)
 
-    # 检查images文件夹
+    # Check images folder
     images_folder = os.path.join(static_folder, 'images')
     structure['images'] = os.path.exists(images_folder)
     if structure['images']:
@@ -268,7 +281,7 @@ def check_static():
     return jsonify(structure)
 
 
-# 添加测试页面路由
+# Test page route
 @app.route('/test_page')
 def test_page():
     return """
@@ -295,13 +308,40 @@ def test_page():
     """
 
 
-# 模块直接测试路由
-# 模块直接测试路由（续）
+# Direct module test route
 @app.route('/direct_module/<module_id>')
 def direct_module(module_id):
-    # 定义模块ID到文件名的映射
-    module_templates = {
-        'home': 'modules/home.html',  # 添加modules/前缀
+    try:
+        # Define module ID to file name mapping
+        module_templates = {
+            'home': 'modules/home.html',
+            'civilization_overview': 'modules/civilization_overview.html',
+            'scientific_achievements': 'modules/scientific_achievements.html',
+            'notable_works': 'modules/notable_works.html',
+            'notable_scholars': 'modules/notable_scholars.html',
+            'cultural_stories': 'modules/cultural_stories.html',
+            'cultural_customs': 'modules/cultural_customs.html',
+            'data_summary': 'modules/data_summary.html'
+        }
+
+        # Get the module template file name
+        template_file = module_templates.get(module_id)
+
+        if template_file:
+            # Render the module template with base.html
+            return render_template('base.html') + render_template(template_file)
+        else:
+            return f"Invalid module: {module_id}", 404
+    except Exception as e:
+        return f"Error loading module: {str(e)}", 500
+
+
+# Module debug info route
+@app.route('/debug_modules')
+def debug_modules():
+    # List all available modules and their paths
+    modules = {
+        'home': 'modules/home.html',
         'civilization_overview': 'modules/civilization_overview.html',
         'scientific_achievements': 'modules/scientific_achievements.html',
         'notable_works': 'modules/notable_works.html',
@@ -311,25 +351,7 @@ def direct_module(module_id):
         'data_summary': 'modules/data_summary.html'
     }
 
-    # 其余代码保持不变
-
-
-# 模块调试信息路由
-@app.route('/debug_modules')
-def debug_modules():
-    # 列出所有可用的模块及其路径
-    modules = {
-        'home': 'home.html',
-        'civilization_overview': 'civilization_overview.html',
-        'scientific_achievements': 'scientific_achievements.html',
-        'notable_works': 'notable_works.html',
-        'notable_scholars': 'notable_scholars.html',
-        'cultural_stories': 'cultural_stories.html',
-        'cultural_customs': 'cultural_customs.html',
-        'data_summary': 'data_summary.html'
-    }
-
-    # 检查各模块文件是否存在
+    # Check if each module file exists
     module_status = {}
     for module_id, path in modules.items():
         full_path = os.path.join('templates', path)
@@ -340,7 +362,7 @@ def debug_modules():
             'direct_link': f'/direct_module/{module_id}'
         }
 
-    # 返回HTML格式的调试信息
+    # Return HTML format debug info
     html = """
     <!DOCTYPE html>
     <html>
@@ -364,6 +386,7 @@ def debug_modules():
             <div>
                 <a href="/" class="action-btn">返回首页</a>
                 <a href="/check_static" class="action-btn">检查静态文件</a>
+                <a href="/test_page" class="action-btn">测试页面</a>
             </div>
         </div>
 
@@ -419,17 +442,22 @@ def debug_modules():
     return html
 
 
-# 错误处理 - 404页面
+# Error handling - 404 page
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error.html', error='页面未找到'), 404
 
 
-# 错误处理 - 500页面
+# Error handling - 500 page
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('error.html', error='服务器内部错误'), 500
 
 
 if __name__ == '__main__':
+    # Check if necessary directories exist, create if not
+    for directory in ['static/css', 'static/js', 'static/images']:
+        os.makedirs(os.path.join(os.path.dirname(__file__), directory), exist_ok=True)
+
+    # Run the Flask application
     app.run(host='0.0.0.0', port=8190, debug=True)

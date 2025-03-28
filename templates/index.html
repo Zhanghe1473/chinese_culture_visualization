@@ -4,6 +4,63 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/additional.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add.css') }}">
+<style>
+/* Fix for content loading issues */
+#dynamic-content {
+    min-height: 500px;
+    position: relative;
+    padding: 20px;
+}
+
+.module-loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100px;
+    text-align: center;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(157, 41, 51, 0.3);
+    border-radius: 50%;
+    border-top-color: rgba(157, 41, 51, 1);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Fix for buttons */
+[data-navigate-to] {
+    cursor: pointer !important;
+}
+
+/* Fix for scroll animations */
+.scroll-animation {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scroll-animation.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Fix for chart containers */
+.chart-container {
+    height: 400px !important;
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -15,38 +72,51 @@
         <p>正在加载内容...</p>
     </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
-<script src="{{ url_for('static', filename='js/additional.js') }}"></script>
-<script src="{{ url_for('static', filename='js/fix-buttons.js') }}"></script>
-<script src="{{ url_for('static', filename='js/interactive.js') }}"></script>
-<script src="{{ url_for('static', filename='js/visualization.js') }}"></script>
+<!-- Debug Panel (hidden by default) -->
+<div id="debug-panel" style="display: none; position: fixed; bottom: 10px; right: 10px; background: rgba(0,0,0,0.8); color: white; padding: 10px; border-radius: 5px; max-width: 400px; max-height: 300px; overflow: auto; z-index: 1000;">
+    <h4>Debug Panel</h4>
+    <div id="debug-content"></div>
+    <button onclick="document.getElementById('debug-panel').style.display='none'" style="background: #555; color: white; border: none; padding: 5px 10px; margin-top: 10px; cursor: pointer;">Close</button>
+</div>
+
+<!-- Keyboard shortcut for debug panel: Ctrl+Shift+D -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize module loader and set a flag to avoid multiple initializations
-    if (typeof window.moduleLoaderInitialized === 'undefined') {
-        console.log('Initializing module loader from index.html');
-        window.moduleLoaderInitialized = true;
-        initModuleLoader();
-    }
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+        const debugPanel = document.getElementById('debug-panel');
+        debugPanel.style.display = debugPanel.style.display === 'none' ? 'block' : 'none';
 
-    // Simple error handling for module loader
-    if (typeof initModuleLoader !== 'function') {
-        console.error('Module loader not found! Check if module_loader.js is properly loaded.');
-        document.getElementById('dynamic-content').innerHTML = `
-            <div class="error-container">
-                <div class="error-icon">
-                    <i class="fa fa-exclamation-circle"></i>
-                </div>
-                <h3 class="error-title">模块加载器未找到</h3>
-                <p class="error-message">无法加载模块加载器，请检查网络连接或刷新页面。</p>
-                <div class="error-actions">
-                    <button class="btn btn-primary" onclick="window.location.reload()">刷新页面</button>
-                </div>
-            </div>
-        `;
+        if (debugPanel.style.display === 'block') {
+            const debugContent = document.getElementById('debug-content');
+            debugContent.innerHTML = '<p>Loading debug info...</p>';
+
+            // Show module loader debug info
+            if (typeof debugModuleLoader === 'function') {
+                setTimeout(function() {
+                    debugModuleLoader();
+                    debugContent.innerHTML += '<p>Module loader debug complete</p>';
+                }, 100);
+            } else {
+                debugContent.innerHTML += '<p>Module loader debug function not available</p>';
+            }
+
+            // Show loaded scripts
+            const scripts = Array.from(document.querySelectorAll('script'))
+                .filter(s => s.src)
+                .map(s => `<li>${s.src.split('/').pop()}</li>`)
+                .join('');
+
+            debugContent.innerHTML += `<p>Loaded scripts:</p><ul>${scripts}</ul>`;
+
+            // Show loaded stylesheets
+            const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+                .filter(s => s.href)
+                .map(s => `<li>${s.href.split('/').pop()}</li>`)
+                .join('');
+
+            debugContent.innerHTML += `<p>Loaded stylesheets:</p><ul>${styles}</ul>`;
+        }
     }
 });
 </script>
-{% endblock %}

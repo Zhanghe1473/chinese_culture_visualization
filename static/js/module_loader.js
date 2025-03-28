@@ -1,4 +1,4 @@
-// Enhanced module loader script to implement the specifications from readme1.md
+// Enhanced module loader script to fix issues with dynamic content loading
 
 /**
  * Initializes the module loader
@@ -31,6 +31,9 @@ function initModuleLoader() {
                 return;
             }
 
+            // Log the click event for debugging
+            console.log(`Navigation item clicked: ${moduleId}`);
+
             // Load the corresponding module
             loadModule(moduleId, dynamicContent);
 
@@ -39,11 +42,12 @@ function initModuleLoader() {
         });
     });
 
-    // Handle navigation buttons on homepage
+    // Handle navigation buttons with data-navigate-to attribute
     const moduleButtons = document.querySelectorAll('[data-navigate-to]');
     moduleButtons.forEach(button => {
         button.addEventListener('click', function() {
             const moduleId = this.getAttribute('data-navigate-to');
+            console.log(`Navigation button clicked: ${moduleId}`);
 
             // Find corresponding navigation item and trigger click event
             const navItem = document.querySelector(`.nav-item[data-module="${moduleId}"]`);
@@ -63,6 +67,7 @@ function initModuleLoader() {
     const moduleParam = urlParams.get('module');
 
     if (moduleParam) {
+        console.log(`Loading module from URL parameter: ${moduleParam}`);
         // If module specified in URL, load it
         const targetNavItem = document.querySelector(`.nav-item[data-module="${moduleParam}"]`);
         if (targetNavItem) {
@@ -78,6 +83,7 @@ function initModuleLoader() {
             }
         }
     } else {
+        console.log('Loading default home module');
         // Load home module by default
         const homeNavItem = document.querySelector('.nav-item[data-module="home"]');
         if (homeNavItem) {
@@ -112,6 +118,9 @@ function loadModule(moduleId, container) {
             // Update container content
             container.innerHTML = html;
 
+            // Log the loaded content
+            console.log(`Module ${moduleId} content loaded successfully`);
+
             // Load module-specific CSS
             loadModuleCSS(moduleId);
 
@@ -126,6 +135,20 @@ function loadModule(moduleId, container) {
 
             // Handle image errors
             handleImageErrors();
+
+            // Bind navigation buttons inside the loaded module
+            bindNavigationButtons();
+
+            // Initialize charts if echarts is available
+            if (typeof echarts !== 'undefined') {
+                console.log('Initializing charts...');
+                if (typeof initializeCharts === 'function') {
+                    setTimeout(initializeCharts, 100);
+                }
+                if (typeof initializeMoreCharts === 'function') {
+                    setTimeout(initializeMoreCharts, 200);
+                }
+            }
 
             // Scroll to top
             window.scrollTo(0, 0);
@@ -152,6 +175,35 @@ function loadModule(moduleId, container) {
             // Hide loading indicator
             hideLoading();
         });
+}
+
+/**
+ * Bind navigation buttons inside loaded modules
+ */
+function bindNavigationButtons() {
+    const navButtons = document.querySelectorAll('[data-navigate-to]');
+    navButtons.forEach(button => {
+        // Remove existing event listeners by cloning the node
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+
+        newButton.addEventListener('click', function() {
+            const moduleId = this.getAttribute('data-navigate-to');
+            console.log(`Navigation button clicked inside module: ${moduleId}`);
+
+            // Find corresponding navigation item
+            const navItem = document.querySelector(`.nav-item[data-module="${moduleId}"]`);
+            if (navItem) {
+                navItem.click();
+            } else {
+                // If navigation item not found, load module directly
+                const dynamicContent = document.getElementById('dynamic-content');
+                if (dynamicContent) {
+                    loadModule(moduleId, dynamicContent);
+                }
+            }
+        });
+    });
 }
 
 /**
@@ -254,276 +306,31 @@ function loadModuleJS(moduleId) {
 
     // Initialize charts and animations after JS loaded
     script.onload = function() {
+        console.log(`Module JS loaded: ${moduleId}.js`);
+
         // If chart initialization function exists, call it
         if (typeof initializeCharts === 'function') {
-            initializeCharts();
+            setTimeout(initializeCharts, 100);
         }
 
         // If more charts initialization function exists, call it
         if (typeof initializeMoreCharts === 'function') {
-            initializeMoreCharts();
+            setTimeout(initializeMoreCharts, 200);
         }
 
         // If module has its own initialization function, call it
         const moduleInitFunction = window[`init${moduleId.charAt(0).toUpperCase() + moduleId.slice(1)}`];
         if (typeof moduleInitFunction === 'function') {
-            moduleInitFunction();
+            setTimeout(moduleInitFunction, 300);
         }
 
         // Initialize scroll animations
-        initScrollAnimations();
-    };
-}
+        setTimeout(initScrollAnimations, 400);
 
-/**
- * Updates browser history
- * @param {string} moduleId - The module ID
- */
-function updateHistory(moduleId) {
-    const newUrl = new URL(window.location);
-    newUrl.searchParams.set('module', moduleId);
-
-    // Update URL without reloading page
-    window.history.pushState({moduleId: moduleId}, '', newUrl);
-}
-
-/**
- * Triggers module loaded event
- * @param {string} moduleId - The module ID
- */
-function triggerModuleLoadedEvent(moduleId) {
-    const event = new CustomEvent('moduleLoaded', {
-        detail: {
-            moduleId: moduleId
-        }
-    });
-
-    document.dispatchEvent(event);
-}
-
-/**
- * Handles image loading errors
- */
-function handleImageErrors() {
-    // Add onerror handler to all images
-    document.querySelectorAll('img').forEach(img => {
-        img.onerror = function() {
-            // Add default style when image loading fails
-            this.classList.add('img-error');
-            this.alt = this.alt || 'Image loading failed';
-
-            // Try to extract file name from original path as alternate text
-            const pathParts = this.src.split('/');
-            const fileName = pathParts[pathParts.length - 1];
-
-            // Set default style
-            this.style.backgroundColor = '#f8f4e6';
-            this.style.border = '1px dashed #ccc';
-            this.style.padding = '10px';
-            this.style.display = 'flex';
-            this.style.alignItems = 'center';
-            this.style.justifyContent = 'center';
-            this.style.minHeight = '100px';
-            this.style.position = 'relative';
-
-            // Insert error message
-            const parent = this.parentNode;
-            const errorMsg = document.createElement('div');
-            errorMsg.className = 'img-error-msg';
-            errorMsg.textContent = `图片加载失败: ${fileName}`;
-            errorMsg.style.position = 'absolute';
-            errorMsg.style.top = '50%';
-            errorMsg.style.left = '50%';
-            errorMsg.style.transform = 'translate(-50%, -50%)';
-            errorMsg.style.color = '#9d2933';
-            errorMsg.style.fontSize = '12px';
-            errorMsg.style.textAlign = 'center';
-            errorMsg.style.width = '80%';
-            parent.appendChild(errorMsg);
-        };
-    });
-}
-
-/**
- * Initializes scroll animations
- */
-function initScrollAnimations() {
-    const scrollElements = document.querySelectorAll('.scroll-animation');
-
-    if (scrollElements.length === 0) return;
-
-    const elementInView = (el, dividend = 1) => {
-        const elementTop = el.getBoundingClientRect().top;
-        return (
-            elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
-        );
+        // Rebind navigation buttons inside the module
+        setTimeout(bindNavigationButtons, 500);
     };
 
-    const displayScrollElement = (element) => {
-        element.classList.add('visible');
-    };
-
-    const hideScrollElement = (element) => {
-        element.classList.remove('visible');
-    };
-
-    const handleScrollAnimation = () => {
-        scrollElements.forEach((el) => {
-            if (elementInView(el, 1.25)) {
-                displayScrollElement(el);
-            } else {
-                hideScrollElement(el);
-            }
-        });
-    };
-
-    // Add scroll event listener
-    window.addEventListener('scroll', () => {
-        handleScrollAnimation();
-    });
-
-    // Initially trigger scroll animation check
-    handleScrollAnimation();
+    // Load main script files if they're not already loaded
+    loadMainScripts();
 }
-
-/**
- * Retries loading a module
- * @param {string} moduleId - The module ID
- */
-function retryLoadModule(moduleId) {
-    console.log(`Retrying module loading: ${moduleId}`);
-
-    // Get dynamic content container
-    const dynamicContent = document.getElementById('dynamic-content');
-
-    if (dynamicContent) {
-        // Reload module
-        loadModule(moduleId, dynamicContent);
-    }
-}
-
-/**
- * Loads fallback content for a module
- * @param {string} moduleId - The module ID
- */
-function loadFallbackContent(moduleId) {
-    const dynamicContent = document.getElementById('dynamic-content');
-    if (!dynamicContent) return;
-
-    // Provide simplified content for each module
-    switch(moduleId) {
-        case 'home':
-            dynamicContent.innerHTML = `
-                <div class="simple-card">
-                    <h2>华夏瑰宝</h2>
-                    <p>探索中华五千年文明的灿烂瑰宝</p>
-                    <div class="simple-buttons">
-                        <button class="btn" onclick="loadModule('civilization_overview', document.getElementById('dynamic-content'))">文明概述</button>
-                        <button class="btn" onclick="loadModule('scientific_achievements', document.getElementById('dynamic-content'))">科学成就</button>
-                    </div>
-                </div>
-            `;
-            break;
-        case 'civilization_overview':
-            dynamicContent.innerHTML = `
-                <div class="simple-card">
-                    <h2>中华文明概述</h2>
-                    <p>中华文明是世界上历史最悠久的文明之一，从距今约5000年前的新石器时代晚期开始，经历了黄河流域和长江流域文明的诞生与融合，逐渐形成了统一的文化体系。</p>
-                </div>
-            `;
-            break;
-        case 'scientific_achievements':
-            dynamicContent.innerHTML = `
-                <div class="simple-card">
-                    <h2>中国古代科学成就</h2>
-                    <p>中国古代科学技术在世界科技发展史上占有重要地位，在天文、数学、医学、农学、工艺等领域取得了丰硕成果，其中尤以四大发明为代表。</p>
-                    <h3>四大发明</h3>
-                    <ul>
-                        <li>造纸术</li>
-                        <li>印刷术</li>
-                        <li>火药</li>
-                        <li>指南针</li>
-                    </ul>
-                </div>
-            `;
-            break;
-        case 'notable_works':
-            dynamicContent.innerHTML = `
-                <div class="simple-card">
-                    <h2>中国古代杰出著作</h2>
-                    <p>中国古代留下了大量珍贵的典籍著作，包括经史子集四大类。</p>
-                </div>
-            `;
-            break;
-        case 'notable_scholars':
-            dynamicContent.innerHTML = `
-                <div class="simple-card">
-                    <h2>中国古代杰出学者</h2>
-                    <p>中国历史上涌现出众多杰出的思想家、科学家、文学家和艺术家，他们的成就对中国和世界产生了深远影响。</p>
-                </div>
-            `;
-            break;
-        case 'cultural_stories':
-            dynamicContent.innerHTML = `
-                <div class="simple-card">
-                    <h2>中国古代文化典故</h2>
-                    <p>中国古代流传下来的文化典故蕴含丰富的历史知识和哲理智慧，是中华文化的重要组成部分。</p>
-                </div>
-            `;
-            break;
-        case 'cultural_customs':
-            dynamicContent.innerHTML = `
-                <div class="simple-card">
-                    <h2>中国传统文化习俗</h2>
-                    <p>中国传统节日和习俗是中华文化的重要组成部分，体现了中国人的生活方式和价值观念。</p>
-                </div>
-            `;
-            break;
-        case 'data_summary':
-            dynamicContent.innerHTML = `
-                <div class="simple-card">
-                    <h2>中华文明数据汇总</h2>
-                    <p>通过数据可视化的方式，展示中华文明在各个方面的成就和影响。</p>
-                </div>
-            `;
-            break;
-        default:
-            dynamicContent.innerHTML = `
-                <div class="simple-card">
-                    <h2>${moduleId.replace(/_/g, ' ')}</h2>
-                    <p>简化内容正在加载中...</p>
-                </div>
-            `;
-    }
-}
-
-// Listen for browser back/forward button events
-window.addEventListener('popstate', function(event) {
-    if (event.state && event.state.moduleId) {
-        // Get dynamic content container
-        const dynamicContent = document.getElementById('dynamic-content');
-
-        if (dynamicContent) {
-            // Load module from history
-            const moduleId = event.state.moduleId;
-
-            // Update navigation active state
-            const navItem = document.querySelector(`.nav-item[data-module="${moduleId}"]`);
-            if (navItem) {
-                updateNavActiveState(navItem);
-            }
-
-            // Load module
-            loadModule(moduleId, dynamicContent);
-        }
-    }
-});
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-    // Only initialize once
-    if (typeof window.moduleLoaderInitialized === 'undefined') {
-        window.moduleLoaderInitialized = true;
-        initModuleLoader();
-    }
-});
