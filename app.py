@@ -16,12 +16,13 @@ def index():
 
 
 # 模块加载路由 - 用于AJAX加载各个模块内容
+# Modified route for module loading
 @app.route('/module/<module_id>')
 def load_module(module_id):
     try:
-        # 定义模块ID到文件名的映射
+        # Define module ID to file name mapping
         module_templates = {
-            'home': 'modules/home.html',  # 添加modules/前缀
+            'home': 'modules/home.html',
             'civilization_overview': 'modules/civilization_overview.html',
             'scientific_achievements': 'modules/scientific_achievements.html',
             'notable_works': 'modules/notable_works.html',
@@ -31,22 +32,21 @@ def load_module(module_id):
             'data_summary': 'modules/data_summary.html'
         }
 
-        # 获取模块模板文件名
+        # Get the module template file name
         template_file = module_templates.get(module_id)
 
         if template_file:
-            # 渲染模块模板
+            # Render the module template
             return render_template(template_file)
         else:
-            # 如果模块ID无效，返回错误信息
+            # If the module ID is invalid, return an error message
             return render_template('error.html', error='模块不存在'), 404
     except Exception as e:
-        # 记录详细错误信息
+        # Log detailed error information
         import traceback
-        app.logger.error(f"模块加载错误 {module_id}: {str(e)}")
+        app.logger.error(f"Module loading error {module_id}: {str(e)}")
         app.logger.error(traceback.format_exc())
         return render_template('error.html', error=f'加载模块时出错: {str(e)}'), 500
-
 
 # API路由 - 朝代成就数据
 @app.route('/api/dynasty-achievements')
@@ -193,44 +193,48 @@ def get_astronomy_data(data_type):
 
 
 # 为缺失的图片提供占位图片路由
+# Improved placeholder image route
 @app.route('/static/images/<path:filename>')
 def placeholder_image(filename):
-    """为缺失的图片提供占位图片"""
-    # 首先检查请求的图片是否存在
+    """Provide placeholder image for missing images"""
+    # First check if the requested image exists
     image_path = os.path.join(app.static_folder, 'images', filename)
     if os.path.exists(image_path):
         return send_file(image_path)
 
-    # 如果图片不存在，创建占位图
+    # If image doesn't exist, create a placeholder
     try:
-        # 获取目录结构
+        # Get directory structure
         directory = os.path.dirname(os.path.join(app.static_folder, 'images', filename))
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-        # 创建一个占位图
-        img = Image.new('RGB', (400, 300), color=(240, 240, 230))
+        # Create a placeholder image
+        img = Image.new('RGB', (400, 300), color=(248, 244, 230))  # Use theme background color
         d = ImageDraw.Draw(img)
 
-        # 尝试加载字体，如果失败则使用默认字体
+        # Try to load font, if fails use default font
         try:
             font = ImageFont.truetype("Arial", 20)
         except IOError:
             font = ImageFont.load_default()
 
-        # 添加文字
-        d.text((50, 150), f"图片占位符: {filename}", fill=(100, 100, 100), font=font)
+        # Add text
+        d.text((50, 150), f"图片占位符: {os.path.basename(filename)}", fill=(157, 41, 51), font=font)  # Use theme color
 
-        # 保存到内存
+        # Add decorative border
+        d.rectangle([(0, 0), (399, 299)], outline=(212, 160, 23), width=2)  # Gold accent color
+
+        # Save to memory
         img_io = io.BytesIO()
         img.save(img_io, 'JPEG', quality=70)
         img_io.seek(0)
 
         return send_file(img_io, mimetype='image/jpeg')
     except Exception as e:
-        # 如果创建占位图失败，返回简单的文本
+        # If creating placeholder image fails, return simple text
+        app.logger.error(f"Failed to create placeholder image: {str(e)}")
         return f"图片占位符: {filename} (错误: {str(e)})", 200
-
 
 # 静态文件结构检查路由
 @app.route('/check_static')

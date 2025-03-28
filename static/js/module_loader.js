@@ -1,131 +1,139 @@
-// 模块加载器脚本
-// 用于动态加载网站各个模块内容
+// Enhanced module loader script to implement the specifications from readme1.md
 
 /**
- * 初始化模块加载器
- * 绑定导航事件，实现模块动态加载功能
+ * Initializes the module loader
+ * Binds navigation events, implements module dynamic loading
  */
 function initModuleLoader() {
-    console.log('初始化模块加载器...');
+    console.log('Initializing module loader...');
 
-    // 获取所有导航项
+    // Get all navigation items
     const navItems = document.querySelectorAll('.nav-item');
 
-    // 获取动态内容容器
+    // Get dynamic content container
     const dynamicContent = document.getElementById('dynamic-content');
 
-    // 如果没有找到动态内容容器，则退出
+    // If dynamic content container not found, exit
     if (!dynamicContent) {
-        console.error('错误：未找到动态内容容器元素！');
+        console.error('Error: Dynamic content container not found!');
         return;
     }
 
-    // 为每个导航项绑定点击事件
+    // Add event listeners to navigation items
     navItems.forEach(item => {
         item.addEventListener('click', function() {
-            // 获取模块ID
+            // Get module ID from data-module attribute
             const moduleId = this.getAttribute('data-module');
 
-            // 如果没有模块ID，则退出
+            // If no module ID, exit
             if (!moduleId) {
-                console.error('错误：导航项没有指定模块ID！');
+                console.error('Error: Navigation item has no module ID!');
                 return;
             }
 
-            // 加载对应的模块
+            // Load the corresponding module
             loadModule(moduleId, dynamicContent);
 
-            // 更新导航项状态
+            // Update navigation active state
             updateNavActiveState(this);
         });
     });
 
-    // 处理首页上的导航按钮
+    // Handle navigation buttons on homepage
     const moduleButtons = document.querySelectorAll('[data-navigate-to]');
     moduleButtons.forEach(button => {
         button.addEventListener('click', function() {
             const moduleId = this.getAttribute('data-navigate-to');
 
-            // 找到对应的导航项并触发点击事件
+            // Find corresponding navigation item and trigger click event
             const navItem = document.querySelector(`.nav-item[data-module="${moduleId}"]`);
             if (navItem) {
                 navItem.click();
             } else {
-                console.error(`错误：未找到导航项：${moduleId}`);
+                console.error(`Error: Navigation item not found: ${moduleId}`);
+
+                // If navigation item not found, load module directly
+                loadModule(moduleId, dynamicContent);
             }
         });
     });
 
-    // 默认选中首页，除非URL中有特定参数
+    // Load default module or from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
     const moduleParam = urlParams.get('module');
 
     if (moduleParam) {
-        // 如果URL中指定了模块，则加载该模块
+        // If module specified in URL, load it
         const targetNavItem = document.querySelector(`.nav-item[data-module="${moduleParam}"]`);
         if (targetNavItem) {
             targetNavItem.click();
         } else {
-            // 如果指定的模块不存在，则加载首页
+            // If specified module not found, load home
             const homeNavItem = document.querySelector('.nav-item[data-module="home"]');
             if (homeNavItem) {
                 homeNavItem.click();
+            } else {
+                // If no home navigation item, load module directly
+                loadModule(moduleParam, dynamicContent);
             }
         }
     } else {
-        // 否则加载首页
+        // Load home module by default
         const homeNavItem = document.querySelector('.nav-item[data-module="home"]');
         if (homeNavItem) {
             homeNavItem.click();
+        } else {
+            // If no home navigation item, load home module directly
+            loadModule('home', dynamicContent);
         }
     }
 }
 
 /**
- * 加载指定模块的内容
- * @param {string} moduleId - 模块ID
- * @param {HTMLElement} container - 内容容器元素
+ * Loads a specific module's content
+ * @param {string} moduleId - The module ID
+ * @param {HTMLElement} container - The container element
  */
 function loadModule(moduleId, container) {
-    console.log(`加载模块：${moduleId}`);
+    console.log(`Loading module: ${moduleId}`);
 
-    // 显示加载指示器
+    // Show loading indicator
     showLoading(container);
 
-    // 通过AJAX请求获取模块内容
+    // Request module content via AJAX
     fetch(`/module/${moduleId}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP错误，状态码：${response.status}`);
+                throw new Error(`HTTP error, status: ${response.status}`);
             }
             return response.text();
         })
         .then(html => {
-            // 更新容器内容
+            // Update container content
             container.innerHTML = html;
 
-            // 加载模块特定的CSS
+            // Load module-specific CSS
             loadModuleCSS(moduleId);
 
-            // 加载模块特定的JS
+            // Load module-specific JS
             loadModuleJS(moduleId);
 
-            // 更新浏览器历史记录，便于浏览器前进后退按钮
+            // Update browser history
             updateHistory(moduleId);
 
-            // 触发模块加载完成事件
+            // Trigger module loaded event
             triggerModuleLoadedEvent(moduleId);
 
-            // 处理图片加载错误
+            // Handle image errors
             handleImageErrors();
 
-            // 滚动到页面顶部
+            // Scroll to top
             window.scrollTo(0, 0);
         })
         .catch(error => {
-            console.error(`加载模块"${moduleId}"时出错：`, error);
+            console.error(`Error loading module "${moduleId}":`, error);
 
-            // 显示错误信息
+            // Show error message
             container.innerHTML = `
                 <div class="error-container">
                     <div class="error-icon">
@@ -141,31 +149,31 @@ function loadModule(moduleId, container) {
             `;
         })
         .finally(() => {
-            // 隐藏加载指示器
+            // Hide loading indicator
             hideLoading();
         });
 }
 
 /**
- * 更新导航项的激活状态
- * @param {HTMLElement} activeItem - 当前激活的导航项
+ * Updates navigation item active state
+ * @param {HTMLElement} activeItem - The current active navigation item
  */
 function updateNavActiveState(activeItem) {
-    // 移除所有导航项的active类
+    // Remove active class from all navigation items
     document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
     });
 
-    // 为当前项添加active类
+    // Add active class to current item
     activeItem.classList.add('active');
 }
 
 /**
- * 显示加载指示器
- * @param {HTMLElement} container - 内容容器元素
+ * Shows loading indicator
+ * @param {HTMLElement} container - The content container element
  */
 function showLoading(container) {
-    // 创建加载指示器
+    // Create loading indicator
     const loadingIndicator = document.createElement('div');
     loadingIndicator.className = 'module-loading';
     loadingIndicator.innerHTML = `
@@ -173,115 +181,115 @@ function showLoading(container) {
         <p>正在加载模块内容...</p>
     `;
 
-    // 清空容器并添加加载指示器
+    // Clear container and add loading indicator
     container.innerHTML = '';
     container.appendChild(loadingIndicator);
 }
 
 /**
- * 隐藏加载指示器
+ * Hides loading indicator
  */
 function hideLoading() {
-    // 移除所有加载指示器
+    // Remove all loading indicators
     document.querySelectorAll('.module-loading').forEach(el => {
         el.remove();
     });
 }
 
 /**
- * 加载模块特定的CSS文件
- * @param {string} moduleId - 模块ID
+ * Loads module-specific CSS
+ * @param {string} moduleId - The module ID
  */
 function loadModuleCSS(moduleId) {
-    // 检查是否已加载该模块的CSS
+    // Check if CSS already loaded
     const cssId = `css-module-${moduleId}`;
     if (document.getElementById(cssId)) {
-        return; // 已经加载过，不需要重复加载
+        return; // Already loaded, no need to load again
     }
 
-    // 创建link元素加载CSS
+    // Create link element to load CSS
     const link = document.createElement('link');
     link.id = cssId;
     link.rel = 'stylesheet';
     link.href = `/static/css/modules/${moduleId}.css`;
     link.setAttribute('data-module-resource', 'true');
 
-    // 添加到head
+    // Add to head
     document.head.appendChild(link);
 
-    // 处理加载错误
+    // Handle loading error
     link.onerror = function() {
-        console.log(`模块CSS文件不存在: ${moduleId}.css（这是正常的，如果没有特定的CSS文件）`);
-        // 移除无效的link元素
+        console.log(`Module CSS file does not exist: ${moduleId}.css (This is normal if there is no specific CSS file)`);
+        // Remove invalid link element
         this.remove();
     };
 }
 
 /**
- * 加载模块特定的JS文件
- * @param {string} moduleId - 模块ID
+ * Loads module-specific JS
+ * @param {string} moduleId - The module ID
  */
 function loadModuleJS(moduleId) {
-    // 检查是否已加载该模块的JS
+    // Check if JS already loaded
     const jsId = `js-module-${moduleId}`;
     if (document.getElementById(jsId)) {
-        return; // 已经加载过，不需要重复加载
+        return; // Already loaded, no need to load again
     }
 
-    // 创建script元素加载JS
+    // Create script element to load JS
     const script = document.createElement('script');
     script.id = jsId;
     script.src = `/static/js/modules/${moduleId}.js`;
     script.setAttribute('data-module-resource', 'true');
 
-    // 添加到body末尾
+    // Add to body end
     document.body.appendChild(script);
 
-    // 处理加载错误
+    // Handle loading error
     script.onerror = function() {
-        console.log(`模块JS文件不存在: ${moduleId}.js（这是正常的，如果没有特定的JS文件）`);
-        // 移除无效的script元素
+        console.log(`Module JS file does not exist: ${moduleId}.js (This is normal if there is no specific JS file)`);
+        // Remove invalid script element
         this.remove();
     };
 
-    // JS加载完成后初始化通用图表
+    // Initialize charts and animations after JS loaded
     script.onload = function() {
-        // 如果存在图表初始化函数，则调用
+        // If chart initialization function exists, call it
         if (typeof initializeCharts === 'function') {
             initializeCharts();
         }
 
-        // 如果存在更多图表初始化函数，则调用
+        // If more charts initialization function exists, call it
         if (typeof initializeMoreCharts === 'function') {
             initializeMoreCharts();
         }
 
-        // 如果模块有自己的初始化函数，则调用
+        // If module has its own initialization function, call it
         const moduleInitFunction = window[`init${moduleId.charAt(0).toUpperCase() + moduleId.slice(1)}`];
         if (typeof moduleInitFunction === 'function') {
             moduleInitFunction();
         }
 
-        // 初始化滚动动画
+        // Initialize scroll animations
         initScrollAnimations();
     };
 }
 
 /**
- * 更新浏览器历史记录
- * @param {string} moduleId - 模块ID
+ * Updates browser history
+ * @param {string} moduleId - The module ID
  */
 function updateHistory(moduleId) {
     const newUrl = new URL(window.location);
     newUrl.searchParams.set('module', moduleId);
 
-    // 更新URL，但不重新加载页面
+    // Update URL without reloading page
     window.history.pushState({moduleId: moduleId}, '', newUrl);
 }
 
 /**
- * 触发模块加载完成事件
- * @param {string} moduleId - 模块ID
+ * Triggers module loaded event
+ * @param {string} moduleId - The module ID
  */
 function triggerModuleLoadedEvent(moduleId) {
     const event = new CustomEvent('moduleLoaded', {
@@ -294,21 +302,21 @@ function triggerModuleLoadedEvent(moduleId) {
 }
 
 /**
- * 处理图片加载错误
+ * Handles image loading errors
  */
 function handleImageErrors() {
-    // 为所有图片添加onerror处理
+    // Add onerror handler to all images
     document.querySelectorAll('img').forEach(img => {
         img.onerror = function() {
-            // 图片加载失败时，添加默认样式
+            // Add default style when image loading fails
             this.classList.add('img-error');
-            this.alt = this.alt || '图片加载失败';
+            this.alt = this.alt || 'Image loading failed';
 
-            // 尝试从原始路径提取文件名作为替代文本
+            // Try to extract file name from original path as alternate text
             const pathParts = this.src.split('/');
             const fileName = pathParts[pathParts.length - 1];
 
-            // 设置默认样式
+            // Set default style
             this.style.backgroundColor = '#f8f4e6';
             this.style.border = '1px dashed #ccc';
             this.style.padding = '10px';
@@ -318,7 +326,7 @@ function handleImageErrors() {
             this.style.minHeight = '100px';
             this.style.position = 'relative';
 
-            // 插入错误提示
+            // Insert error message
             const parent = this.parentNode;
             const errorMsg = document.createElement('div');
             errorMsg.className = 'img-error-msg';
@@ -337,13 +345,72 @@ function handleImageErrors() {
 }
 
 /**
- * 加载后备内容
- * @param {string} moduleId - 模块ID
+ * Initializes scroll animations
+ */
+function initScrollAnimations() {
+    const scrollElements = document.querySelectorAll('.scroll-animation');
+
+    if (scrollElements.length === 0) return;
+
+    const elementInView = (el, dividend = 1) => {
+        const elementTop = el.getBoundingClientRect().top;
+        return (
+            elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+        );
+    };
+
+    const displayScrollElement = (element) => {
+        element.classList.add('visible');
+    };
+
+    const hideScrollElement = (element) => {
+        element.classList.remove('visible');
+    };
+
+    const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+            if (elementInView(el, 1.25)) {
+                displayScrollElement(el);
+            } else {
+                hideScrollElement(el);
+            }
+        });
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', () => {
+        handleScrollAnimation();
+    });
+
+    // Initially trigger scroll animation check
+    handleScrollAnimation();
+}
+
+/**
+ * Retries loading a module
+ * @param {string} moduleId - The module ID
+ */
+function retryLoadModule(moduleId) {
+    console.log(`Retrying module loading: ${moduleId}`);
+
+    // Get dynamic content container
+    const dynamicContent = document.getElementById('dynamic-content');
+
+    if (dynamicContent) {
+        // Reload module
+        loadModule(moduleId, dynamicContent);
+    }
+}
+
+/**
+ * Loads fallback content for a module
+ * @param {string} moduleId - The module ID
  */
 function loadFallbackContent(moduleId) {
     const dynamicContent = document.getElementById('dynamic-content');
     if (!dynamicContent) return;
 
+    // Provide simplified content for each module
     switch(moduleId) {
         case 'home':
             dynamicContent.innerHTML = `
@@ -430,90 +497,31 @@ function loadFallbackContent(moduleId) {
     }
 }
 
-/**
- * 重试加载模块
- * @param {string} moduleId - 模块ID
- */
-function retryLoadModule(moduleId) {
-    console.log(`重试加载模块：${moduleId}`);
-
-    // 获取动态内容容器
-    const dynamicContent = document.getElementById('dynamic-content');
-
-    if (dynamicContent) {
-        // 重新加载模块
-        loadModule(moduleId, dynamicContent);
-    }
-}
-
-/**
- * 初始化滚动动画
- */
-function initScrollAnimations() {
-    const scrollElements = document.querySelectorAll('.scroll-animation');
-
-    if (scrollElements.length === 0) return;
-
-    const elementInView = (el, dividend = 1) => {
-        const elementTop = el.getBoundingClientRect().top;
-        return (
-            elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
-        );
-    };
-
-    const displayScrollElement = (element) => {
-        element.classList.add('visible');
-    };
-
-    const hideScrollElement = (element) => {
-        element.classList.remove('visible');
-    };
-
-    const handleScrollAnimation = () => {
-        scrollElements.forEach((el) => {
-            if (elementInView(el, 1.25)) {
-                displayScrollElement(el);
-            } else {
-                hideScrollElement(el);
-            }
-        });
-    };
-
-    // 添加滚动事件监听
-    window.addEventListener('scroll', () => {
-        handleScrollAnimation();
-    });
-
-    // 初始触发一次滚动动画检查
-    handleScrollAnimation();
-}
-
-// 监听浏览器前进/后退按钮事件
+// Listen for browser back/forward button events
 window.addEventListener('popstate', function(event) {
     if (event.state && event.state.moduleId) {
-        // 获取动态内容容器
+        // Get dynamic content container
         const dynamicContent = document.getElementById('dynamic-content');
 
         if (dynamicContent) {
-            // 加载历史记录中的模块
+            // Load module from history
             const moduleId = event.state.moduleId;
 
-            // 更新导航项状态
+            // Update navigation active state
             const navItem = document.querySelector(`.nav-item[data-module="${moduleId}"]`);
             if (navItem) {
                 updateNavActiveState(navItem);
             }
 
-            // 加载模块
+            // Load module
             loadModule(moduleId, dynamicContent);
         }
     }
 });
 
-// 页面加载完成后初始化
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化模块加载器
-    // 注意：此函数通常在index.html中调用，这里仅作为备份
+    // Only initialize once
     if (typeof window.moduleLoaderInitialized === 'undefined') {
         window.moduleLoaderInitialized = true;
         initModuleLoader();

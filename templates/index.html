@@ -2,19 +2,51 @@
 
 {% block title %}华夏瑰宝-文化科学可视化展示系统{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/additional.css') }}">
+{% endblock %}
+
 {% block content %}
-<!-- 动态加载模块内容 -->
+<!-- Dynamic content container for module loading -->
 <div id="dynamic-content">
-    <!-- 默认加载首页模块 -->
-    {% include 'modules/home.html' %}
+    <!-- Default content will be replaced by module loading -->
+    <div class="module-loading">
+        <div class="loading-spinner"></div>
+        <p>正在加载内容...</p>
+    </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
+<script src="{{ url_for('static', filename='js/additional.js') }}"></script>
+<script src="{{ url_for('static', filename='js/fix-buttons.js') }}"></script>
+<script src="{{ url_for('static', filename='js/interactive.js') }}"></script>
+<script src="{{ url_for('static', filename='js/visualization.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化模块加载器
-    initModuleLoader();
+    // Initialize module loader and set a flag to avoid multiple initializations
+    if (typeof window.moduleLoaderInitialized === 'undefined') {
+        console.log('Initializing module loader from index.html');
+        window.moduleLoaderInitialized = true;
+        initModuleLoader();
+    }
+
+    // Simple error handling for module loader
+    if (typeof initModuleLoader !== 'function') {
+        console.error('Module loader not found! Check if module_loader.js is properly loaded.');
+        document.getElementById('dynamic-content').innerHTML = `
+            <div class="error-container">
+                <div class="error-icon">
+                    <i class="fa fa-exclamation-circle"></i>
+                </div>
+                <h3 class="error-title">模块加载器未找到</h3>
+                <p class="error-message">无法加载模块加载器，请检查网络连接或刷新页面。</p>
+                <div class="error-actions">
+                    <button class="btn btn-primary" onclick="window.location.reload()">刷新页面</button>
+                </div>
+            </div>
+        `;
+    }
 });
 </script>
 {% endblock %}
