@@ -1,16 +1,29 @@
 // Chart initializer - ensures charts are properly rendered
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Chart initializer loaded');
-    // Wait for echarts to be available
-    function waitForEcharts() {
+function waitForEcharts() {
+    let attempts = 0;
+    const maxAttempts = 10; // Maximum number of attempts
+
+    function check() {
+        attempts++;
         if (typeof echarts !== 'undefined') {
             console.log('ECharts is available, initializing charts');
             initChartsWithDelay();
+        } else if (attempts < maxAttempts) {
+            console.log('ECharts not available yet, waiting... (Attempt ' + attempts + '/' + maxAttempts + ')');
+            setTimeout(check, 200);
         } else {
-            console.log('ECharts not available yet, waiting...');
-            setTimeout(waitForEcharts, 200);
+            console.error('ECharts failed to load after ' + maxAttempts + ' attempts. Continuing without charts.');
+            // Show placeholder for chart containers
+            document.querySelectorAll('.chart-container').forEach(container => {
+                container.innerHTML = '<div class="chart-error">图表加载失败，请刷新页面重试</div>';
+            });
         }
     }
+
+    check();
+}
 
     // Initialize charts with delay
     function initChartsWithDelay() {
@@ -505,6 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Helper function to initialize a chart if its container exists
     function initializeChartIfContainerExists(containerId, initFunction) {
+    try {
         const container = document.getElementById(containerId);
         if (container) {
             console.log(`Container ${containerId} found, initializing chart`);
@@ -525,10 +539,15 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Container ${containerId} not found, skipping chart initialization`);
         }
         return null;
+    } catch (error) {
+        console.error(`Error in initializeChartIfContainerExists for ${containerId}:`, error);
+        return null;
     }
+}
 
     // Fix chart container heights
     function fixChartContainerHeights() {
+    try {
         const chartContainers = document.querySelectorAll('.chart-container');
         chartContainers.forEach(container => {
             if (!container.style.height || container.style.height === '') {
@@ -536,7 +555,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 container.style.height = '400px';
             }
         });
+    } catch (error) {
+        console.error('Error fixing chart container heights:', error);
     }
+}
 
     // Begin chart initialization process
     fixChartContainerHeights();

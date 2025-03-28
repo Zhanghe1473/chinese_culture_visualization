@@ -127,3 +127,93 @@ function checkResourceLoading() {
     });
 }
 </script>
+// Add this to the bottom of your base.html file, right before the closing </body> tag
+
+<script>
+// Fix for persistent loaders
+(function() {
+    // Function to force hide all loaders
+    function forceHideLoader() {
+        console.log("Forcing all loaders to hide");
+
+        // Hide the main loader
+        const mainLoader = document.querySelector('.loader');
+        if (mainLoader) {
+            mainLoader.style.opacity = '0';
+            setTimeout(function() {
+                mainLoader.style.display = 'none';
+            }, 500);
+        }
+
+        // Hide any module loading indicators
+        document.querySelectorAll('.module-loading').forEach(el => {
+            el.style.display = 'none';
+            setTimeout(function() {
+                el.remove();
+            }, 500);
+        });
+
+        // Hide any loading spinners
+        document.querySelectorAll('.loading-spinner').forEach(el => {
+            el.style.display = 'none';
+        });
+    }
+
+    // Try to hide the loader when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(forceHideLoader, 3000);
+    });
+
+    // Also try to hide the loader when window is loaded
+    window.addEventListener('load', function() {
+        setTimeout(forceHideLoader, 1000);
+    });
+
+    // Final fallback - force hide after 8 seconds no matter what
+    setTimeout(forceHideLoader, 8000);
+})();
+</script>
+// Add this right before the closing </body> tag in base.html
+<script>
+// Debug module loading issues
+(function() {
+    console.log("DEBUG: Page loaded, checking modules");
+
+    // Check if modules are loading
+    setTimeout(function() {
+        const dynamicContent = document.getElementById('dynamic-content');
+
+        if (dynamicContent) {
+            console.log("DEBUG: Dynamic content container found");
+            console.log("DEBUG: Current content:", dynamicContent.innerHTML);
+
+            // Check if there's anything visible in the dynamic content
+            if (dynamicContent.innerHTML.trim() === '' ||
+                dynamicContent.innerHTML.includes('module-loading')) {
+                console.log("DEBUG: No content loaded, attempting to load home module");
+
+                // Try to force load the home module
+                fetch('/module/home')
+                    .then(response => response.text())
+                    .then(html => {
+                        console.log("DEBUG: Received home module content");
+                        dynamicContent.innerHTML = html;
+
+                        // Hide all loaders
+                        document.querySelectorAll('.loader, .module-loading').forEach(el => {
+                            el.style.display = 'none';
+                        });
+
+                        console.log("DEBUG: Home module loaded manually");
+                    })
+                    .catch(error => {
+                        console.error("Failed to load home module:", error);
+                        dynamicContent.innerHTML = '<div class="error-container"><h3>Error loading content</h3><p>Please try refreshing the page.</p></div>';
+                    });
+            }
+        } else {
+            console.error("DEBUG: Dynamic content container not found!");
+        }
+    }, 2000);
+})();
+</script>
