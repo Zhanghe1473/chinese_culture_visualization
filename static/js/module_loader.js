@@ -334,3 +334,7 @@ function loadModuleJS(moduleId) {
     // Load main script files if they're not already loaded
     loadMainScripts();
 }
+// In module_loader.js
+console.log('Attempting to load module:', moduleId);
+// After response
+console.log('Module loaded:', moduleId, response);
