@@ -21,7 +21,7 @@ body {
   font-family: var(--font-family-text);
   color: var(--text-color);
   background-color: var(--background-color);
-  background-image: url('../images/paper_texture.png');
+  background-image: url('static/images/backgrounds/paper_texture.png');
   overflow-x: hidden;
 }
 
@@ -113,16 +113,40 @@ body {
 }
 
 /* 主内容区域样式 */
+/* 主内容区域样式 - 减少顶部空白 */
 .main-content {
   margin-left: var(--nav-width);
-  margin-top: var(--header-height);
-  padding: 30px;
+  margin-top: var(--header-height); /* 原来有额外的空间，直接使用header高度 */
+  padding: 15px 30px; /* 减小上下内边距 */
   min-height: calc(100vh - var(--header-height));
 }
 
+/* 页面标题样式 - 减少底部边距 */
+.page-title {
+  font-family: var(--font-family-title);
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 15px; /* 原为30px，减少一半 */
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--accent-color);
+  position: relative;
+}
+
+/* 卡片样式 - 减少底部边距 */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px; /* 原为25px */
+  margin-bottom: 20px; /* 原为30px */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 调整section的动画效果，使其更紧凑 */
 .section {
   display: none;
   animation: fadeIn 0.5s ease;
+  padding-top: 10px; /* 添加一个小的顶部内边距 */
 }
 
 .section.active {
@@ -156,14 +180,6 @@ body {
 }
 
 /* 卡片样式 */
-.card {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 25px;
-  margin-bottom: 30px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
 
 .card:hover {
   transform: translateY(-5px);
@@ -490,7 +506,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-image: url('../images/hero_background.jpg');
+  background-image: url('static/images/backgrounds/hero_background.png');
   background-size: cover;
   background-position: center;
   position: relative;

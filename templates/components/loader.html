@@ -1,7 +1,69 @@
-<!-- 加载动画 -->
 <div class="loader">
-    <div class="loader-inner">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">加载中</div>
+    <div class="loader-content">
+        <div class="loader-icon">
+            <svg width="80" height="80" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#f8f4e6" stroke-width="8" />
+                <path class="loader-circle" d="M50 5 a 45 45 0 0 1 0 90 a 45 45 0 0 1 0 -90" fill="none" stroke="#9d2933" stroke-width="8" stroke-linecap="round" />
+            </svg>
+        </div>
+        <div class="loader-text">华夏瑰宝</div>
     </div>
 </div>
+
+<style>
+    .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--background-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+    }
+
+    .loader-content {
+        text-align: center;
+    }
+
+    .loader-icon {
+        margin-bottom: 15px;
+    }
+
+    .loader-circle {
+        stroke-dasharray: 283;
+        stroke-dashoffset: 280;
+        animation: loader-animation 1.5s ease-in-out infinite;
+        transform-origin: 50% 50%;
+    }
+
+    .loader-text {
+        font-family: var(--font-family-title);
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        opacity: 0;
+        animation: text-fade 1.5s ease-in-out infinite;
+    }
+
+    @keyframes loader-animation {
+        0% {
+            stroke-dashoffset: 283;
+            transform: rotate(0deg);
+        }
+        50% {
+            stroke-dashoffset: 75;
+        }
+        100% {
+            stroke-dashoffset: 283;
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes text-fade {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
+</style>

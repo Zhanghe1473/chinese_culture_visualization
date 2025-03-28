@@ -1,4 +1,31 @@
+// 安全初始化函数
+function safeInitializeChart(chartId, initFunction) {
+    try {
+        const chartContainer = document.getElementById(chartId);
+        if (!chartContainer) {
+            console.warn(`找不到图表容器: ${chartId}`);
+            return null;
+        }
+
+        return initFunction(chartContainer);
+    } catch (error) {
+        console.error(`初始化图表 ${chartId} 时出错:`, error);
+
+        // 显示出错信息在图表容器中
+        const chartContainer = document.getElementById(chartId);
+        if (chartContainer) {
+            chartContainer.innerHTML = `
+                <div class="chart-error">
+                    <p>图表加载失败</p>
+                    <small>${error.message}</small>
+                </div>
+            `;
+        }
+        return null;
+    }
+}
 // 改进的可视化脚本
+
 document.addEventListener('DOMContentLoaded', function() {
     // 等待DOM和依赖库完全加载
     setTimeout(function() {

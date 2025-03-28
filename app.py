@@ -1,16 +1,15 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory, send_file
 import os
+from PIL import Image, ImageDraw, ImageFont
+import io
 
 app = Flask(__name__)
 
-
-# 配置静态文件目录
-@app.route('/static/<path:filename>')
-def serve_static(filename):
-    return send_from_directory('static', filename)
+# 确保静态文件正确配置
+app.static_folder = 'static'
 
 
-# 主页路由
+# 首页路由
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -19,11 +18,10 @@ def index():
 # 模块加载路由 - 用于AJAX加载各个模块内容
 @app.route('/module/<module_id>')
 def load_module(module_id):
-    # 根据模块ID返回相应的模块HTML
     try:
         # 定义模块ID到文件名的映射
         module_templates = {
-            'home': 'modules/home.html',
+            'home': 'modules/home.html',  # 添加modules/前缀
             'civilization_overview': 'modules/civilization_overview.html',
             'scientific_achievements': 'modules/scientific_achievements.html',
             'notable_works': 'modules/notable_works.html',
@@ -41,10 +39,13 @@ def load_module(module_id):
             return render_template(template_file)
         else:
             # 如果模块ID无效，返回错误信息
-            return render_template('components/error.html', message='模块不存在'), 404
+            return render_template('error.html', error='模块不存在'), 404
     except Exception as e:
-        # 如果发生异常，返回错误信息
-        return render_template('components/error.html', message=str(e)), 500
+        # 记录详细错误信息
+        import traceback
+        app.logger.error(f"模块加载错误 {module_id}: {str(e)}")
+        app.logger.error(traceback.format_exc())
+        return render_template('error.html', error=f'加载模块时出错: {str(e)}'), 500
 
 
 # API路由 - 朝代成就数据
@@ -191,6 +192,229 @@ def get_astronomy_data(data_type):
     return jsonify(data)
 
 
+# 为缺失的图片提供占位图片路由
+@app.route('/static/images/<path:filename>')
+def placeholder_image(filename):
+    """为缺失的图片提供占位图片"""
+    # 首先检查请求的图片是否存在
+    image_path = os.path.join(app.static_folder, 'images', filename)
+    if os.path.exists(image_path):
+        return send_file(image_path)
+
+    # 如果图片不存在，创建占位图
+    try:
+        # 获取目录结构
+        directory = os.path.dirname(os.path.join(app.static_folder, 'images', filename))
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        # 创建一个占位图
+        img = Image.new('RGB', (400, 300), color=(240, 240, 230))
+        d = ImageDraw.Draw(img)
+
+        # 尝试加载字体，如果失败则使用默认字体
+        try:
+            font = ImageFont.truetype("Arial", 20)
+        except IOError:
+            font = ImageFont.load_default()
+
+        # 添加文字
+        d.text((50, 150), f"图片占位符: {filename}", fill=(100, 100, 100), font=font)
+
+        # 保存到内存
+        img_io = io.BytesIO()
+        img.save(img_io, 'JPEG', quality=70)
+        img_io.seek(0)
+
+        return send_file(img_io, mimetype='image/jpeg')
+    except Exception as e:
+        # 如果创建占位图失败，返回简单的文本
+        return f"图片占位符: {filename} (错误: {str(e)})", 200
+
+
+# 静态文件结构检查路由
+@app.route('/check_static')
+def check_static():
+    """检查静态文件结构"""
+    static_folder = app.static_folder
+    structure = {}
+
+    # 检查CSS文件
+    css_folder = os.path.join(static_folder, 'css')
+    structure['css'] = os.path.exists(css_folder)
+    if structure['css']:
+        structure['css_files'] = os.listdir(css_folder)
+
+    # 检查JS文件
+    js_folder = os.path.join(static_folder, 'js')
+    structure['js'] = os.path.exists(js_folder)
+    if structure['js']:
+        structure['js_files'] = os.listdir(js_folder)
+
+    # 检查images文件夹
+    images_folder = os.path.join(static_folder, 'images')
+    structure['images'] = os.path.exists(images_folder)
+    if structure['images']:
+        structure['image_subfolders'] = []
+        for root, dirs, files in os.walk(images_folder):
+            rel_path = os.path.relpath(root, images_folder)
+            if rel_path != '.':
+                structure['image_subfolders'].append(rel_path)
+
+    return jsonify(structure)
+
+
+# 添加测试页面路由
+@app.route('/test_page')
+def test_page():
+    return """
+    <html>
+    <head>
+        <title>测试页面</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .test-box { padding: 20px; margin: 20px 0; border: 1px solid #ccc; }
+        </style>
+    </head>
+    <body>
+        <h1>测试页面</h1>
+        <div class="test-box">
+            <h2>静态内容测试</h2>
+            <p>这是一个简单的测试页面，检查静态内容是否正常显示。</p>
+        </div>
+        <div class="test-box">
+            <h2>中文显示测试</h2>
+            <p>测试中文内容是否正常显示：华夏瑰宝-文化科学可视化展示系统</p>
+        </div>
+    </body>
+    </html>
+    """
+
+
+# 模块直接测试路由
+# 模块直接测试路由（续）
+@app.route('/direct_module/<module_id>')
+def direct_module(module_id):
+    # 定义模块ID到文件名的映射
+    module_templates = {
+        'home': 'modules/home.html',  # 添加modules/前缀
+        'civilization_overview': 'modules/civilization_overview.html',
+        'scientific_achievements': 'modules/scientific_achievements.html',
+        'notable_works': 'modules/notable_works.html',
+        'notable_scholars': 'modules/notable_scholars.html',
+        'cultural_stories': 'modules/cultural_stories.html',
+        'cultural_customs': 'modules/cultural_customs.html',
+        'data_summary': 'modules/data_summary.html'
+    }
+
+    # 其余代码保持不变
+
+
+# 模块调试信息路由
+@app.route('/debug_modules')
+def debug_modules():
+    # 列出所有可用的模块及其路径
+    modules = {
+        'home': 'home.html',
+        'civilization_overview': 'civilization_overview.html',
+        'scientific_achievements': 'scientific_achievements.html',
+        'notable_works': 'notable_works.html',
+        'notable_scholars': 'notable_scholars.html',
+        'cultural_stories': 'cultural_stories.html',
+        'cultural_customs': 'cultural_customs.html',
+        'data_summary': 'data_summary.html'
+    }
+
+    # 检查各模块文件是否存在
+    module_status = {}
+    for module_id, path in modules.items():
+        full_path = os.path.join('templates', path)
+        module_status[module_id] = {
+            'path': path,
+            'exists': os.path.exists(full_path),
+            'size': os.path.getsize(full_path) if os.path.exists(full_path) else 0,
+            'direct_link': f'/direct_module/{module_id}'
+        }
+
+    # 返回HTML格式的调试信息
+    html = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>模块调试信息</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; }
+            tr:nth-child(even) { background-color: #f9f9f9; }
+            .exists { color: green; }
+            .missing { color: red; }
+            .header { display: flex; justify-content: space-between; align-items: center; }
+            .action-btn { padding: 5px 10px; margin: 5px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>模块调试信息</h1>
+            <div>
+                <a href="/" class="action-btn">返回首页</a>
+                <a href="/check_static" class="action-btn">检查静态文件</a>
+            </div>
+        </div>
+
+        <h2>可用模块</h2>
+        <table>
+            <tr>
+                <th>模块ID</th>
+                <th>模板路径</th>
+                <th>状态</th>
+                <th>文件大小</th>
+                <th>操作</th>
+            </tr>
+    """
+
+    for module_id, status in module_status.items():
+        exists_class = "exists" if status['exists'] else "missing"
+        exists_text = "存在" if status['exists'] else "缺失"
+        html += f"""
+            <tr>
+                <td>{module_id}</td>
+                <td>{status['path']}</td>
+                <td class="{exists_class}">{exists_text}</td>
+                <td>{status['size']} 字节</td>
+                <td>
+                    <a href="/module/{module_id}" target="_blank">API调用</a> | 
+                    <a href="{status['direct_link']}" target="_blank">直接查看</a>
+                </td>
+            </tr>
+        """
+
+    html += """
+        </table>
+
+        <h2>系统信息</h2>
+        <table>
+            <tr>
+                <th>属性</th>
+                <th>值</th>
+            </tr>
+            <tr>
+                <td>模板目录</td>
+                <td>""" + app.template_folder + """</td>
+            </tr>
+            <tr>
+                <td>静态文件目录</td>
+                <td>""" + app.static_folder + """</td>
+            </tr>
+        </table>
+    </body>
+    </html>
+    """
+
+    return html
+
+
 # 错误处理 - 404页面
 @app.errorhandler(404)
 def page_not_found(e):
@@ -204,5 +428,4 @@ def internal_server_error(e):
 
 
 if __name__ == '__main__':
-    # 确保应用监听所有网络接口，便于外部访问
     app.run(host='0.0.0.0', port=8190, debug=True)

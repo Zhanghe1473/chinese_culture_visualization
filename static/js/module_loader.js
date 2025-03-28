@@ -116,6 +116,9 @@ function loadModule(moduleId, container) {
             // 触发模块加载完成事件
             triggerModuleLoadedEvent(moduleId);
 
+            // 处理图片加载错误
+            handleImageErrors();
+
             // 滚动到页面顶部
             window.scrollTo(0, 0);
         })
@@ -124,13 +127,16 @@ function loadModule(moduleId, container) {
 
             // 显示错误信息
             container.innerHTML = `
-                <div class="module-error">
+                <div class="error-container">
                     <div class="error-icon">
                         <i class="fa fa-exclamation-triangle"></i>
                     </div>
                     <h3 class="error-title">模块加载失败</h3>
                     <p class="error-message">${error.message}</p>
-                    <button class="btn retry-btn" onclick="retryLoadModule('${moduleId}')">重试</button>
+                    <div class="error-actions">
+                        <button class="btn btn-primary" onclick="retryLoadModule('${moduleId}')">重试</button>
+                        <button class="btn btn-secondary" onclick="loadFallbackContent('${moduleId}')">加载简化内容</button>
+                    </div>
                 </div>
             `;
         })
@@ -285,6 +291,143 @@ function triggerModuleLoadedEvent(moduleId) {
     });
 
     document.dispatchEvent(event);
+}
+
+/**
+ * 处理图片加载错误
+ */
+function handleImageErrors() {
+    // 为所有图片添加onerror处理
+    document.querySelectorAll('img').forEach(img => {
+        img.onerror = function() {
+            // 图片加载失败时，添加默认样式
+            this.classList.add('img-error');
+            this.alt = this.alt || '图片加载失败';
+
+            // 尝试从原始路径提取文件名作为替代文本
+            const pathParts = this.src.split('/');
+            const fileName = pathParts[pathParts.length - 1];
+
+            // 设置默认样式
+            this.style.backgroundColor = '#f8f4e6';
+            this.style.border = '1px dashed #ccc';
+            this.style.padding = '10px';
+            this.style.display = 'flex';
+            this.style.alignItems = 'center';
+            this.style.justifyContent = 'center';
+            this.style.minHeight = '100px';
+            this.style.position = 'relative';
+
+            // 插入错误提示
+            const parent = this.parentNode;
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'img-error-msg';
+            errorMsg.textContent = `图片加载失败: ${fileName}`;
+            errorMsg.style.position = 'absolute';
+            errorMsg.style.top = '50%';
+            errorMsg.style.left = '50%';
+            errorMsg.style.transform = 'translate(-50%, -50%)';
+            errorMsg.style.color = '#9d2933';
+            errorMsg.style.fontSize = '12px';
+            errorMsg.style.textAlign = 'center';
+            errorMsg.style.width = '80%';
+            parent.appendChild(errorMsg);
+        };
+    });
+}
+
+/**
+ * 加载后备内容
+ * @param {string} moduleId - 模块ID
+ */
+function loadFallbackContent(moduleId) {
+    const dynamicContent = document.getElementById('dynamic-content');
+    if (!dynamicContent) return;
+
+    switch(moduleId) {
+        case 'home':
+            dynamicContent.innerHTML = `
+                <div class="simple-card">
+                    <h2>华夏瑰宝</h2>
+                    <p>探索中华五千年文明的灿烂瑰宝</p>
+                    <div class="simple-buttons">
+                        <button class="btn" onclick="loadModule('civilization_overview', document.getElementById('dynamic-content'))">文明概述</button>
+                        <button class="btn" onclick="loadModule('scientific_achievements', document.getElementById('dynamic-content'))">科学成就</button>
+                    </div>
+                </div>
+            `;
+            break;
+        case 'civilization_overview':
+            dynamicContent.innerHTML = `
+                <div class="simple-card">
+                    <h2>中华文明概述</h2>
+                    <p>中华文明是世界上历史最悠久的文明之一，从距今约5000年前的新石器时代晚期开始，经历了黄河流域和长江流域文明的诞生与融合，逐渐形成了统一的文化体系。</p>
+                </div>
+            `;
+            break;
+        case 'scientific_achievements':
+            dynamicContent.innerHTML = `
+                <div class="simple-card">
+                    <h2>中国古代科学成就</h2>
+                    <p>中国古代科学技术在世界科技发展史上占有重要地位，在天文、数学、医学、农学、工艺等领域取得了丰硕成果，其中尤以四大发明为代表。</p>
+                    <h3>四大发明</h3>
+                    <ul>
+                        <li>造纸术</li>
+                        <li>印刷术</li>
+                        <li>火药</li>
+                        <li>指南针</li>
+                    </ul>
+                </div>
+            `;
+            break;
+        case 'notable_works':
+            dynamicContent.innerHTML = `
+                <div class="simple-card">
+                    <h2>中国古代杰出著作</h2>
+                    <p>中国古代留下了大量珍贵的典籍著作，包括经史子集四大类。</p>
+                </div>
+            `;
+            break;
+        case 'notable_scholars':
+            dynamicContent.innerHTML = `
+                <div class="simple-card">
+                    <h2>中国古代杰出学者</h2>
+                    <p>中国历史上涌现出众多杰出的思想家、科学家、文学家和艺术家，他们的成就对中国和世界产生了深远影响。</p>
+                </div>
+            `;
+            break;
+        case 'cultural_stories':
+            dynamicContent.innerHTML = `
+                <div class="simple-card">
+                    <h2>中国古代文化典故</h2>
+                    <p>中国古代流传下来的文化典故蕴含丰富的历史知识和哲理智慧，是中华文化的重要组成部分。</p>
+                </div>
+            `;
+            break;
+        case 'cultural_customs':
+            dynamicContent.innerHTML = `
+                <div class="simple-card">
+                    <h2>中国传统文化习俗</h2>
+                    <p>中国传统节日和习俗是中华文化的重要组成部分，体现了中国人的生活方式和价值观念。</p>
+                </div>
+            `;
+            break;
+        case 'data_summary':
+            dynamicContent.innerHTML = `
+                <div class="simple-card">
+                    <h2>中华文明数据汇总</h2>
+                    <p>通过数据可视化的方式，展示中华文明在各个方面的成就和影响。</p>
+                </div>
+            `;
+            break;
+        default:
+            dynamicContent.innerHTML = `
+                <div class="simple-card">
+                    <h2>${moduleId.replace(/_/g, ' ')}</h2>
+                    <p>简化内容正在加载中...</p>
+                </div>
+            `;
+    }
 }
 
 /**
